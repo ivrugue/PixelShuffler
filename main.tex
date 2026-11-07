@@ -13,8 +13,10 @@
 \usepackage{graphicx}
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{amsfonts}
 
-
+\newtheorem{definicion}{Definición}[section]
+\newtheorem{proposicion}{Proposición}[section]
 
 \title{Nuestro maravilloso trabajo para la asignatura de\\
 Procesamiento de Imágenes Digitales}
@@ -53,110 +55,76 @@ Se recomienda usar alguna herramienta de planificación y gestión de proyectos 
 
 \section{Planteamiento teórico}
 
-La sección \textit{Planteamiento teórico} debe plantear el problema a resolver, así como describir los algoritmos propuestos para su resolución. 
+\subsection{Notación y planteamiento del problema}
+\[\mathbb{R}^{H_W \times W_W \times n} = \{\text{matrices W con dimensiones} (H_W, W_W), n\in \mathbb{N} \text{ número de canales} \}\]
 
-La realización del trabajo está programada en {\bf 3 fases}, en cada una de las cuales se realiza un {\bf Seguimiento} que consiste en que todos los miembros del grupo le explican sus progresos a la profesora y cada miembro entrega un pequeño informe individual del trabajo realizado hasta el momento. {\bf Estos seguimientos son obligatorios}. Se debe hablar con la profesora en caso de dificultades para asistir. Al final de los seguimientos, la profesora asignará un {\bf coeficiente corrector (entre 0 y 1) individual a la nota de trabajo conjunta, en base al trabajo individual realizado por cada mienmbro del grupo. }
-\subsection*{FASE 1}
-En la primera fase, \textbf{los miembros del grupo} realizarán la \textbf{propuesta del trabajo dirigido} (TD), acordando con el profesorado el trabajo a realizar. 
+Sean $I \in \mathbb{R}^{H_I \times W_I \times 3}$ , $S \in \mathbb{R}^{H_S \times W_S \times 3}$ las matrices que representan las dos imágenes que conforman nuestro espacio de trabajo. Nuestro objetivo final es conseguir una imagen cuyo formato estructural corresponda al de la imagen I, pero con el estilo de la imagen S.
 
-Para la búsqueda de libros y bases de datos de revistas, se puede consultar el catálogo fama de la US \url{http://fama.us.es/}. Se recomiendan las bases de datos ScienceDirect (Elsevier), IEEE Xplore y Sringerlink. Si se accede desde fuera de la Universidad, se tendrá que usar el UVUS. Se pueden encontrar recursos para buscar ideas en el documento \textit{Enlaces de interés} del contenido en ev.
+\begin{definicion}
+Definimos una deformación $\mathbf{d}$ como una función continua de dos variables sobre el dominio $\Omega \subset \mathbb{R}^2$:
 
-En la \textbf{Fase 1}, se debe entregar la {\bf planificación inicial} y la {\bf lista de objetivos} del TD. En la planificación se debe describir cómo se distribuirán las {\bf 50 horas/persona} que el grupo debe dedicar al TD, incluidas las sesiones de clase dedicadas al trabajo.  
-En esta fase debe comprenderse la teoría relativa al trabajo a realizar y quedar perfectamente definido. 
+\[
+\begin{aligned}
+\mathbf{d} : \Omega \subset \mathbb{R}^2 &\longrightarrow \mathbb{R}^2 \\
+(x, y) &\longmapsto \mathbf{d}(x, y) = \left( x', \, y' \right)
+\end{aligned}
+\]
 
-\subsection*{FASE 2}
-En esta fase se comenzará a trabajar en la parte práctica y explicación del método. Se recomienda comenzar a escribir la documentación desde el principio.
+donde $x'$ e $y'$ representan las componentes de la deformación (o desplazamiento) en los ejes $x$ e $y$, respectivamente.
+\end{definicion}
 
-El algoritmo (o algoritmos) a implementar debe estar perfectamente claro y diseñado. Al finalizar la Fase 2, se mostrará una primera versión de la implementación, algo mínimo. Se puede hacer "fork" de un repositorio ya existente, {\bf dejando claro la contribución/adaptación/ experimentación propia}. Toda la implementación debe organizarse en un repositorio que se compartirá con la profesora.
+\begin{definicion}
+Llamaremos \textbf{campo de deformación} $\mathbf{D}$ al campo vectorial de desplazamientos asociado a $\phi$, definido por:
+\[
+\begin{aligned}
+\mathbf{D} : \Omega &\longrightarrow \mathbb{R}^2 \\
+(x, y) &\longmapsto \mathbf{D}(x, y) = d(x, y) - (x, y) = \left( D_x(x, y), \, D_y(x, y) \right)
+\end{aligned}
+\]
 
-Se procurará tener un producto mínimo viable de la implementación al final de la fase, así como una primera versión de la documentación. 
+donde  $D_x(x, y)$, $D_y(x, y)$ representan los desplazamientos horizontales y verticales ,respectivamente, con respecto a las coordenadas de origen (x,y).
+\end{definicion}
 
- Se mostrará la hoja de tiempos realizada hasta ese momento y \textbf{se revisarán los objetivos iniciales} planteados.
+Para llevar a cabo la labor de deformación de la imagen de estilo S, se introduce una red neuronal parametrizada en función de $\theta$. $N_\theta(I,S)$ recibe como entrada ambas imágenes involucradas en el proceso y devuelve el campo de deformación asociado a la imagen S para tomar las formas de I.
 
-\subsection*{FASE 3}
+\[
+\mathbf{D} = N_\theta(I,S)
+\]
 
-En la última fase se realizará la experimentación para poder evaluar y comparar el método implementado y poder inferir conclusiones. Al final de la Fase 3, se tendrá una primera versión de la presentación (aunque sólo sea un índice), junto con una revisión de la documentación y de la implementación. 
+En el caso práctico, $\mathbf{D}$ vendrá dado por una matriz $M_D \in \mathbb{R}^{H_W \times W_W \times 2}$ donde el canal 1 almacenará los $D_x(x,y)$ y el canal 2 contendrá los $D_y(x,y)$
 
-\vspace{1cm}
-En la siguiente tabla se resumen los hitos que deben alcanzarse (y entregarse) al final de cada Fase: 
+\begin{definicion}
+Sea X una variable aleatoria discreta, que toma valores en $D_k = \{x_1,x_2,...,x_k\}$ con distribución de probabilidad $P_X$ se define la entropía de X como:
+\[
+H_X = E(-\ln(P_X(x)) = \sum_{x_k\in D_k} -\ln(P_X(x_k))P_X(x_k)
+\]
+\end{definicion}
 
-    \begin{center}
-    \begin{tabular}{|c||l|}
-    \hline
-  Seguimiento 1 & Propuesta del TD basándose en una fuente científica.   \\& Planificación inicial y lista de objetivos. \\
-  & Estudio y comprensión del método elegido. \\
-  & Hoja de tiempos individual.\\
-\hline
-Seguimiento 2  & Primera versión de la implementación y de la documentación. \\ &  Hoja de tiempos individual.\\& Revisión de los objetivos. \\
-\hline
- Seguimiento 3  & Primera versión de la presentación.  \\& Revisión de la documentación  y de la  implementación.\\&  Hoja de tiempos individual.\\
-\hline
-    \end{tabular}
-    \end{center}
-Los días dedicados a Seguimiento aparecen en el Calendario publicado en ev. Cada grupo tendrá que agendar con la profesora al menos 3 reuniones para los seguimientos obligatorios.
+\noindent La entropia mide el grado de incertidumbre sobre la variable X.
 
-\textbf{Todos} los miembros del grupo deberán \textbf{intervenir en la exposición final}, en la que deberán defender su trabajo y comentar los logros teóricos y de implementación obtenidos. Además, deberá hacerse algún ejemplo usando la implementación desarrollada (\textbf{20 minutos en total}). Las exposiciones se realizarán en horario de clase en las dos últimas semanas. Después se abrirá un turno de preguntas.
+\begin{definicion}
+Sean X e Y dos variables aleatorias definimos la información mutua entre ellas como:
 
-  %  En la siguiente tabla se muestran las fechas de  \textbf{las exposiciones de cada grupo}. Las exposiones se realizarán en horario de clase.
+\[
+IM(X,Y) = H_X - H_{X|Y} 
+\]
 
-%\begin{center}
-%    \begin{tabular}{|c||r|r|}
-%    \hline
-%     &Grupos 1,2,3 & Grupos 4,5,6\\
-%    \hline\hline
-%  Fecha de la exposición & 8 de junio & 9 de junio \\
-%\hline
-%    \end{tabular}
-%    \end{center}
+\noindent Esta magnitud cuantifica cualquier tipo de dependencia entre las variables X e Y. Puede verse como cuán determinada queda una variable en función de la incertidumbre con respecto a la otra.
+\end{definicion}
 
-Para la entrega, cada grupo deberá subir, en respuesta a una actividad creada para tal efecto en la ev, los siguientes elementos:
+\begin{proposicion}
+Sean X e Y dos variables aleatorias. Entonces:
+\[
+IM(X,Y) = 0 \iff \text{X e Y son independientes} 
+\]
 
- \begin{itemize}
-\item \url{documentacion.pdf}. Consiste en un fichero \url{.pdf} correspondiente a la documentación. 
+\end{proposicion}
 
-Estructura de la documentación:
+Los algoritmos usuales de aprendizaje automático se encargan de minimizar una función de pérdida. Nuestro objetivo es maximizar la información mutua entre la imagen estructural I y la imagen de estilo transformada, luego bastaría con añadir un menos delante de la función a maximizar para que se convierta en una minimización:
 
-\begin{enumerate}
-\item[]  Título
-\item[]  Autores
-\item[]  Resumen
-\item  Introducción 
-\item  Planteamiento teórico 
-\item  Implementación
-\item  Experimentación
-\item  (Manual de usuario)
-\item Uso de IA en este trabajo
-\item  Conclusiones
-\item Autoevaluación de cada miembro
-\item  Tabla de tiempos
-\item[]  Bibliografía
-\end{enumerate}
-
-Se puede usar el fichero \url{main.tex} disponible en enseñanza virtual como plantilla de Latex\footnote{Véase el Anexo para algunos apuntes rápidos sobre escritura de textos en LaTex (tomados de \url{Overleaf.com}.}, que es el que se ha usado en este documento. Se recomienda el uso de editores online de LaTeX como \url{Overleaf.com}, aunque a día de hoy, la versión gratuita sólo permite dos colaboradores.
-
-Las referencias se citan así:
-bla, bla \cite{clave:revista}, bla, bla \cite{clave:libro}. La bibliografía
-debe seguir el estilo de este documento, con las referencias ordenadas alfabéticamente por autores.
-
-También se puede documentar el trabajo en un Notebook de Jupyter, en el que también se puede incluir código LaTex e imprimirlo como pdf.
-
-\item \url{Repositorio}. Se debe crear un repositorio github, y referenciarlo en la documentación. 
-
-Si se ha desarrollado una aplicación propia, debe contener todo el código utilizado, comentado y modulado. Debe contener el ejecutable, si existiera, junto con todos los archivos necesarios para su ejecución de forma que no dé errores de compilación.
-Debe contener un {\bf Readme} con instrucciones para ejecutar el código.
-Se debe incluir una carpeta \textbf{images} con imágenes de muestra, incluyendo las imágenes usadas en la experimentación.
-
-En caso de que exista ya una implementación en un repositorio público asociado al trabajo escogido, se debe desarrollar una versión propia, haciendo una bifurcación (fork) del repositorio que incluya explicaciones, paso a paso, ejemplos, modificaciones, etc. Por ejemplo, se puede hacer un notebook de jupyter que incluya ejemplos de uso o la experimentación.
-Aquí el archivo {\bf Readme} deberá referenciar bien el trabajo original y explicar la aportación propia.
-
-
-\item \url{presentacion.pdf}. Consiste en un fichero \url{.pdf} con la presentación que se usará en clase para exponer el trabajo.
-\end{itemize}
-
-La evaluación del trabajo se realizará en base a una rúbrica que se proporcionará en la ev. 
-
-
-
+\[
+L_{IM} = - IM(I, S_{deformada})
+\]
 
 \section{Implementación}
 
