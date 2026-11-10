@@ -1,0 +1,32 @@
+PWD C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler
+INPUT c:/texlive/2026/texmf.cnf
+INPUT c:/texlive/2026/texmf-dist/web2c/texmf.cnf
+INPUT c:/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt
+INPUT c:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/main.tex
+OUTPUT C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/build/main.log
+INPUT c:/texlive/2026/texmf-dist/tex/latex/base/article.cls
+INPUT c:/texlive/2026/texmf-dist/tex/latex/base/article.cls
+INPUT c:/texlive/2026/texmf-dist/tex/latex/base/size10.clo
+INPUT c:/texlive/2026/texmf-dist/tex/latex/base/size10.clo
+INPUT c:/texlive/2026/texmf-dist/tex/latex/base/size10.clo
+INPUT c:/texlive/2026/texmf-dist/tex/generic/babel/babel.sty
+INPUT c:/texlive/2026/texmf-dist/tex/generic/babel/babel.sty
+INPUT c:/texlive/2026/texmf-dist/tex/generic/babel/txtbabel.def
+INPUT c:/texlive/2026/texmf-dist/tex/generic/babel/locale/es/babel-spanish.tex
+INPUT c:/texlive/2026/texmf-dist/tex/generic/babel/locale/es/babel-spanish.tex
+INPUT c:/texlive/2026/texmf-dist/tex/generic/babel/locale/es/babel-spanish.tex
+INPUT c:/texlive/2026/texmf-dist/tex/generic/babel/locale/es/babel-es.ini
+INPUT c:/texlive/2026/texmf-dist/tex/generic/babel-spanish/spanish.ldf
+INPUT c:/texlive/2026/texmf-dist/tex/generic/babel-spanish/spanish.ldf
+INPUT c:/texlive/2026/texmf-dist/tex/generic/babel-spanish/spanish.ldf
+INPUT c:/texlive/2026/texmf-dist/tex/latex/base/inputenc.sty
+INPUT c:/texlive/2026/texmf-dist/tex/latex/base/inputenc.sty
+INPUT c:/texlive/2026/texmf-dist/tex/latex/base/fontenc.sty
+INPUT c:/texlive/2026/texmf-dist/tex/latex/base/fontenc.sty
+INPUT c:/texlive/2026/texmf-dist/fonts/tfm/jknappen/ec/ecrm1000.tfm
+INPUT c:/texlive/2026/texmf-dist/tex/latex/lm/lmodern.sty
+INPUT c:/texlive/2026/texmf-dist/tex/latex/lm/lmodern.sty
+INPUT c:/texlive/2026/texmf-dist/tex/latex/tools/tabularx.sty
+INPUT c:/texlive/2026/texmf-dist/tex/latex/tools/tabularx.sty
+INPUT c:/texlive/2026/texmf-dist/tex/latex/tools/array.sty
+INPUT c:/texlive/2026/texmf-dist/tex/latex/tools/array.sty
