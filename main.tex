@@ -49,7 +49,15 @@ PID, instrucciones, trabajo en grupo, procesamiento de imágenes.
 \subsection{Notación y planteamiento del problema}
 \[\mathbb{R}^{H_W \times W_W \times n} = \{\text{matrices W con dimensiones} (H_W, W_W), n\in \mathbb{N} \text{ número de canales} \}\]
 
-Sean $I \in \mathbb{R}^{H_I \times W_I \times 3}$ , $S \in \mathbb{R}^{H_S \times W_S \times 3}$ las matrices que representan las dos imágenes que conforman nuestro espacio de trabajo. Nuestro objetivo final es conseguir una imagen cuyo formato estructural corresponda al de la imagen I, pero con el estilo de la imagen S.
+\vspace{0.5cm}
+
+\noindent Por fidelidad al código y al artículos hemos de introducir el concepto de tensor, para ello, sin adentrarnos en materia a las matrices previas con 3 dimensiones las llamaremos tensores de dimensión 3. 
+
+\vspace{0.5cm}
+
+\noindent Sean $I \in \mathbb{R}^{H_I \times W_I \times 3}$ , $S \in \mathbb{R}^{H_S \times W_S \times 3}$ los tensores que representan las dos imágenes que conforman nuestro espacio de trabajo. Nuestro objetivo final es conseguir una imagen cuyo formato estructural corresponda al de la imagen I, pero con el estilo de la imagen S.
+
+\vspace{0.5cm}
 
 \begin{definicion}
 Definimos una deformación $\mathbf{d}$ como una función continua de dos variables sobre el dominio $\Omega \subset \mathbb{R}^2$:
@@ -61,7 +69,9 @@ Definimos una deformación $\mathbf{d}$ como una función continua de dos variab
 \end{aligned}
 \]
 
-donde $x'$ e $y'$ representan las componentes de la deformación (o desplazamiento) en los ejes $x$ e $y$, respectivamente.
+\noindent donde $x'$ e $y'$ representan las componentes de la deformación (o desplazamiento) en los ejes $x$ e $y$, respectivamente.
+
+\vspace{0.5cm}
 \end{definicion}
 
 \begin{definicion}
@@ -73,16 +83,18 @@ Llamaremos \textbf{campo de deformación} $\mathbf{D}$ al campo vectorial de des
 \end{aligned}
 \]
 
-donde  $D_x(x, y)$, $D_y(x, y)$ representan los desplazamientos horizontales y verticales ,respectivamente, con respecto a las coordenadas de origen (x,y).
+\noindent donde  $D_x(x, y)$, $D_y(x, y)$ representan los desplazamientos horizontales y verticales ,respectivamente, con respecto a las coordenadas de origen (x,y).
 \end{definicion}
 
-Para llevar a cabo la labor de deformación de la imagen de estilo S, se introduce una red neuronal parametrizada en función de $\theta$. $N_\theta(I,S)$ recibe como entrada ambas imágenes involucradas en el proceso y devuelve el campo de deformación asociado a la imagen S para tomar las formas de I.
+\noindent Para llevar a cabo la labor de deformación de la imagen de estilo S, se introduce una red neuronal parametrizada en función de $\theta$. $N_\theta(I,S)$ recibe como entrada ambas imágenes involucradas en el proceso y devuelve el campo de deformación asociado a la imagen S para tomar las formas de I.
 
 \[
 \mathbf{D} = N_\theta(I,S)
 \]
 
-En el caso práctico, $\mathbf{D}$ vendrá dado por una matriz $M_D \in \mathbb{R}^{H_W \times W_W \times 2}$ donde el canal 1 almacenará los $D_x(x,y)$ y el canal 2 contendrá los $D_y(x,y)$
+\noindent En el caso práctico, $\mathbf{D}$ vendrá dado por un tensor $M_D \in \mathbb{R}^{H_W \times W_W \times 2}$ donde el canal 1 almacenará los $D_x(x,y)$ y el canal 2 contendrá los $D_y(x,y)$
+
+\vspace{0.5cm}
 
 \begin{definicion}
 Sea X una variable aleatoria discreta, que toma valores en $D_k = \{x_1,x_2,...,x_k\}$ con distribución de probabilidad $P_X$ se define la entropía de X como:
@@ -92,6 +104,8 @@ H_X = E(-\ln(P_X(x)) = \sum_{x_k\in D_k} -\ln(P_X(x_k))P_X(x_k)
 \end{definicion}
 
 \noindent La entropia mide el grado de incertidumbre sobre la variable X.
+
+\vspace{0.5cm}
 
 \begin{definicion}
 Sean X e Y dos variables aleatorias definimos la información mutua entre ellas como:
@@ -103,6 +117,8 @@ IM(X,Y) = H_X - H_{X|Y}
 \noindent Esta magnitud cuantifica cualquier tipo de dependencia entre las variables X e Y. Puede verse como cuán determinada queda una variable en función de la incertidumbre con respecto a la otra.
 \end{definicion}
 
+\vspace{0.5cm}
+
 \begin{proposicion}
 Sean X e Y dos variables aleatorias. Entonces:
 \[
@@ -110,16 +126,35 @@ IM(X,Y) = 0 \iff \text{X e Y son independientes}
 \]
 
 \end{proposicion}
-
-Los algoritmos usuales de aprendizaje automático se encargan de minimizar una función de pérdida. Nuestro objetivo es maximizar la información mutua entre la imagen estructural I y la imagen de estilo transformada, luego bastaría con añadir un menos delante de la función a maximizar para que se convierta en una minimización:
+\vspace{0.5cm}
+\noindent Los algoritmos usuales de aprendizaje automático se encargan de minimizar una función de pérdida. Nuestro objetivo es maximizar la información mutua entre la imagen estructural I y la imagen de estilo transformada, luego bastaría con añadir un menos delante de la función a maximizar para que se convierta en una minimización:
 
 \[
 L_{IM} = - IM(I, S_{deformada})
 \]
 
+\noindent En el caso de este proyecto, el método empleado para la minimización es un método de pérdidas mediante gradiente, una conocida función de tipo \textit{loss function}, pero implementado por un método de gradiente. Iterativamente los parámetros $\theta$ de la red son actualizados siguiendo la siguiente fórmula 
+
+\[
+\theta + \mu \bigtriangledown_{\theta} L_{IM} \xrightarrow{} \theta
+\]
+
+\noindent donde $\mu$ representa el llamado coeficiente de aprendizaje. \vspace{0.2cm}
+
+\noindent Podemos observar que se trata de un método de gradiente general donde $\theta^{k + 1} = \mu \bigtriangledown_{\theta}L_{IM} + \theta^k$ donde el coeficiente de aprendizaje corresponde a la longitud de paso. \vspace{0.5cm}
+
+
+\noindent Finalmente, la salida de la función principal será la que llamaremos la imagen $S_{deformada}$ que cumple:
+
+\[
+S_{deformada} = S(x + D_x(x,y), y + D_y(x,y))
+\]
+
+\noindent es decir, la imagen S cuyos píxeles se ven desplazados unos ciertos valores en la dirección de optimización que maximiza la conservación de la información mutua entre ambas imágenes.
+
 \section{Implementación}
 
-...
+Comenzando con la explicación de la implementación, en primer lugar podemos fijarnos en el archivo \textit{deform\_losses.py} donde se implementan los métodos usados para calcular el gradiente y las pérdidas o errores de las aproximaciones. En la primera función podemos observar que se calcula el gradiente de un tensor en una sola dimensión como el incremento entre el valor que lo prosigue y el que lo antecede. En otras dos funciones calcula el GradEnergyLoss y la BendingEnergyLoss que corresponden a la suma de los gradientes al cuadrado (en media en caso de especificarselo) y en otro caso a la suma de los gradientes de los gradientes al cuadradado, respectivamente. Estas se utilizan para informar sobre las variaciones en cuanto a la pérdida (evita fluctuaciones o diferencias muy grandes) en el caso de GradEnergyLoss y sobre la curvatura del espacio con respecto a las diferencias. Tener en cuenta ambas magnitudes permite que la minimización se haga de una manera suave y contínua, sin crear huecos de incosistencia o diferencias bruscas donde se generen "picos".
 
 \section{Experimentación}
 
