@@ -46,21 +46,30 @@ PID, instrucciones, trabajo en grupo, procesamiento de imágenes.
 
 \section{Planteamiento teórico}
 
-\subsection{Notación y planteamiento del problema}
-\[\mathbb{R}^{H_W \times W_W \times n} = \{\text{matrices W con dimensiones} (H_W, W_W), n\in \mathbb{N} \text{ número de canales} \}\]
+\subsection{Planteamiento del problema}
 
-\vspace{0.5cm}
+\noindent El problema abordado consiste en realizar una transferencia de estilo entre dos imágenes digitales: una imagen de contenido $C$ y una imagen de estilo $S$. Nuestro objetivo final es generar una imagen resultante cuyo formato geométrico y estructural corresponda al de la imagen $C$, pero manteniendo la paleta cromática y los rasgos visuales de la imagen $S$ mediante la reordenación espacial de sus píxeles.
 
-\noindent Por fidelidad al código y al artículos hemos de introducir el concepto de tensor, para ello, sin adentrarnos en materia a las matrices previas con 3 dimensiones las llamaremos tensores de dimensión 3. 
+\vspace{0.3cm}
 
-\vspace{0.5cm}
+\noindent Para formalizar matemáticamente el espacio de trabajo, denotaremos mediante $\mathbb{R}^{H \times W \times n}$ al conjunto de tensores tridimensionales (matrices de tres dimensiones) de alto $H$, ancho $W$ y $n$ canales. De este modo, las imágenes de entrada quedan representadas por los tensores $C \in \mathbb{R}^{H_c \times W_c \times 3}$ y $S \in \mathbb{R}^{H_s \times W_s \times 3}$, donde los $3$ canales corresponden al espacio de color estándar RGB. En la práctica, ambas imágenes se redimensionan y recortan previamente a una misma resolución espacial cuadrada $H \times W$ ($C, S \in \mathbb{R}^{H \times W \times 3}$) para poder operar conjuntamente sobre ellas.
 
-\noindent Sean $I \in \mathbb{R}^{H_I \times W_I \times 3}$ , $S \in \mathbb{R}^{H_S \times W_S \times 3}$ los tensores que representan las dos imágenes que conforman nuestro espacio de trabajo. Nuestro objetivo final es conseguir una imagen cuyo formato estructural corresponda al de la imagen I, pero con el estilo de la imagen S.
+\subsection{Transformación espacial de la imagen}
 
-\vspace{0.5cm}
+\subsubsection{Estimación del campo de deformación}
+
+\noindent Para llevar a cabo la labor de deformación de la imagen de estilo $S$, se introduce una red neuronal de arquitectura U-Net parametrizada en función de sus pesos $\theta$. Esta arquitectura sigue un esquema en forma de «U» compuesto por dos ramas: una rama de contracción (\textit{encoder}) que reduce progresivamente la resolución espacial para captar la estructura global y las siluetas de la escena, y una rama de expansión (\textit{decoder}) que vuelve a ampliar el mapa hasta las dimensiones originales apoyándose en conexiones de salto (\textit{skip connections}), las cuales rescatan los bordes finos de las primeras capas para ajustar el desplazamiento píxel a píxel.
+
+\vspace{0.3cm}
+
+\noindent La red $\mathcal{N}_\theta(C, S)$ recibe como entrada un tensor de 6 canales RGB resultado de la concatenación por canales de ambas imágenes y devuelve el campo de deformación asociado a la imagen $S$ para adoptar las formas de $C$:
+
+\[
+D = \mathcal{N}_\theta(C, S)
+\]
 
 \begin{definicion}
-Definimos una deformación $\mathbf{d}$ como una función continua de dos variables sobre el dominio $\Omega \subset \mathbb{R}^2$:
+Definimos una transformación espacial $\mathbf{d}$ como una función continua de dos variables sobre el dominio de coordenadas $\Omega \subset \mathbb{R}^2$:
 
 \[
 \begin{aligned}
@@ -69,88 +78,101 @@ Definimos una deformación $\mathbf{d}$ como una función continua de dos variab
 \end{aligned}
 \]
 
-\noindent donde $x'$ e $y'$ representan las componentes de la deformación (o desplazamiento) en los ejes $x$ e $y$, respectivamente.
-
-\vspace{0.5cm}
+\noindent donde $(x', y')$ representan las nuevas coordenadas destino asociadas al punto de origen $(x, y)$.
 \end{definicion}
 
+\vspace{0.3cm}
+
 \begin{definicion}
-Llamaremos \textbf{campo de deformación} $\mathbf{D}$ al campo vectorial de desplazamientos asociado a $\phi$, definido por:
+Llamaremos campo de deformación $D$ al campo vectorial de desplazamientos asociado a $\mathbf{d}$, definido por:
 \[
 \begin{aligned}
-\mathbf{D} : \Omega &\longrightarrow \mathbb{R}^2 \\
-(x, y) &\longmapsto \mathbf{D}(x, y) = d(x, y) - (x, y) = \left( D_x(x, y), \, D_y(x, y) \right)
+D : \Omega &\longrightarrow \mathbb{R}^2 \\
+(x, y) &\longmapsto D(x, y) = \mathbf{d}(x, y) - (x, y) = \left( \Delta x, \, \Delta y \right)
 \end{aligned}
 \]
 
-\noindent donde  $D_x(x, y)$, $D_y(x, y)$ representan los desplazamientos horizontales y verticales ,respectivamente, con respecto a las coordenadas de origen (x,y).
+\noindent donde $\Delta x$ y $\Delta y$ representan los desplazamientos horizontales y verticales en el punto $(x, y)$, respectivamente, con respecto a las coordenadas de dicho punto.
 \end{definicion}
 
-\noindent Para llevar a cabo la labor de deformación de la imagen de estilo S, se introduce una red neuronal parametrizada en función de $\theta$. $N_\theta(I,S)$ recibe como entrada ambas imágenes involucradas en el proceso y devuelve el campo de deformación asociado a la imagen S para tomar las formas de I.
+\vspace{0.3cm}
+
+\noindent En el caso práctico, $D$ vendrá dado por un tensor $M_D \in \mathbb{R}^{H \times W \times 2}$, donde el canal 1 almacenará los desplazamientos horizontales $\Delta x$ y el canal 2 contendrá los desplazamientos verticales $\Delta y$.
+
+\subsubsection{Remuestreo continuo y obtención de la imagen deformada}
+
+\noindent Una vez estimado el campo vectorial de desplazamientos $D$, se obtiene la imagen transformada $S_{\text{deformed}}$ evaluando la imagen de estilo original en las coordenadas desplazadas:
 
 \[
-\mathbf{D} = N_\theta(I,S)
+S_{\text{deformed}}(x, y) = S\big(x + \Delta x, \, y + \Delta y\big)
 \]
 
-\noindent En el caso práctico, $\mathbf{D}$ vendrá dado por un tensor $M_D \in \mathbb{R}^{H_W \times W_W \times 2}$ donde el canal 1 almacenará los $D_x(x,y)$ y el canal 2 contendrá los $D_y(x,y)$
+\noindent Dado que los desplazamientos $(\Delta x, \Delta y)$ toman valores reales continuos y no necesariamente enteros, las coordenadas destino suelen recaer en posiciones intermedias entre píxeles. Para evaluar estas coordenadas continuas sobre la rejilla discreta de la imagen, se aplica interpolación bilineal a partir de los cuatro píxeles vecinos más cercanos, replicando los valores del borde si algún desplazamiento sale del dominio $\Omega$. Esta operación resulta suave y diferenciable, lo que permite que los gradientes fluyan durante el entrenamiento para actualizar los pesos de la red.
 
-\vspace{0.5cm}
+\subsection{Criterio de optimización}
+
+\subsubsection{Fundamentos de teoría de la información}
+
+\noindent Para guiar el movimiento de los píxeles sin destruir la coherencia visual, el criterio principal del método se fundamenta en la teoría de la información.
 
 \begin{definicion}
-Sea X una variable aleatoria discreta, que toma valores en $D_k = \{x_1,x_2,...,x_k\}$ con distribución de probabilidad $P_X$ se define la entropía de X como:
-\[
-H_X = E(-\ln(P_X(x)) = \sum_{x_k\in D_k} -\ln(P_X(x_k))P_X(x_k)
-\]
+Sea $X$ una variable aleatoria discreta que toma valores en $D_k = \{x_1, x_2, \dots, x_k\}$ con distribución de probabilidad $P_X$, se define la entropía de $X$ como:
+\[H_X = E\big(-\ln(P_X(x))\big) = -\sum_{x_i \in D_k} P_X(x_i)\ln(P_X(x_i))\]
 \end{definicion}
 
-\noindent La entropia mide el grado de incertidumbre sobre la variable X.
+\noindent La entropía mide el grado de incertidumbre promedio sobre la variable $X$. De forma análoga, dada otra variable aleatoria $Y$, la entropía condicional $H_{X\vert{}Y}$ cuantifica la incertidumbre restante sobre $X$ una vez conocido el valor de $Y$.
 
-\vspace{0.5cm}
+\vspace{0.3cm}
 
 \begin{definicion}
-Sean X e Y dos variables aleatorias definimos la información mutua entre ellas como:
+Sean $X$ e $Y$ dos variables aleatorias, definimos la información mutua entre ellas como:
+\[I(X; Y) = H_X - H_{X\vert{}Y}\]
 
-\[
-IM(X,Y) = H_X - H_{X|Y} 
-\]
-
-\noindent Esta magnitud cuantifica cualquier tipo de dependencia entre las variables X e Y. Puede verse como cuán determinada queda una variable en función de la incertidumbre con respecto a la otra.
+\noindent Esta magnitud cuantifica la dependencia estadística entre $X$ e $Y$, indicando hasta qué punto conocer el valor de una de las variables nos permite predecir o reducir la incertidumbre sobre la otra.
 \end{definicion}
 
-\vspace{0.5cm}
+\vspace{0.3cm}
 
 \begin{proposicion}
-Sean X e Y dos variables aleatorias. Entonces:
-\[
-IM(X,Y) = 0 \iff \text{X e Y son independientes} 
-\]
-
+Sean $X$ e $Y$ dos variables aleatorias. Entonces:
+\[I(X; Y) = 0 \iff X \text{ e } Y \text{ son independientes}\]
 \end{proposicion}
-\vspace{0.5cm}
-\noindent Los algoritmos usuales de aprendizaje automático se encargan de minimizar una función de pérdida. Nuestro objetivo es maximizar la información mutua entre la imagen estructural I y la imagen de estilo transformada, luego bastaría con añadir un menos delante de la función a maximizar para que se convierta en una minimización:
+
+\vspace{0.3cm}
+
+\noindent Dado que la información mutua es siempre no negativa, el valor cero marca el límite inferior de ausencia total de relación estructural entre dos imágenes. Por tanto, maximizar $I(C; S_{\text{deformed}})$ aleja ambas imágenes de la independencia estadística, obligando a que los contornos y regiones de $S_{\text{deformed}}$ se alineen con los de $C$ sin exigir que sus colores RGB coincidan numéricamente.
+
+\subsubsection{Formulación de las funciones de coste}
+
+\noindent Los algoritmos usuales de aprendizaje automático se encargan de minimizar una función de pérdida. Como nuestro objetivo es maximizar la información mutua entre la imagen de contenido $C$ y la imagen de estilo transformada $S_{\text{deformed}}$, basta con cambiar el signo de la función a maximizar para formularlo como un problema de minimización:
+
+\[\mathcal{L}_{\text{MI}} = - I(C; S_{\text{deformed}})\]
+
+\noindent Adicionalmente, para controlar el compromiso entre fidelidad geométrica, riqueza textural y suavidad del campo de vectores, la función de coste total $\mathcal{L}_{\text{total}}$ integra términos complementarios ponderados mediante pesos configurables:
+
+\[\mathcal{L}_{\text{total}} = \alpha \, \mathcal{L}_{\text{MI}} + \beta \, (w_i \cdot \mathcal{L}_{\text{LPIPS}}) + \gamma \, (w_i \cdot \mathcal{L}_{\text{Estilo}}) + \lambda \, \mathcal{L}_{\text{Reg}}\]
+
+\noindent donde:
+\begin{itemize}
+    \item $\mathcal{L}_{\text{LPIPS}}$ mide la distancia perceptual estructural entre $C$ y $S_{\text{deformed}}$ comparando las activaciones internas de una red preentrenada en cada posición de la imagen, evitando distorsiones geométricas graves.
+    \item $\mathcal{L}_{\text{Estilo}}$ evalúa la similitud cromática y textural respecto a $S$ a partir de los mapas de características $F \in \mathbb{R}^{N_c \times M}$ (con $N_c$ canales y $M = H \cdot W$ posiciones espaciales) extraídos por una red preentrenada, bien mediante sus estadísticos globales de activación (medias y desviaciones típicas), o bien mediante matrices de correlación de Gram ($G = F \cdot F^T$).
+    \item $\mathcal{L}_{\text{Reg}}$ penaliza sobre el campo $D$ las variaciones espaciales bruscas de primer orden (que evita estiramientos o compresiones excesivas entre píxeles vecinos) o las curvaturas pronunciadas de segundo orden (que evita pliegues o dobleces irregulares), garantizando desplazamientos suaves y continuos.
+    \item $w_i \in [0, 0.1]$ es un factor de ponderación temporal creciente a lo largo de las iteraciones $i$ que permite que en las primeras épocas domine $\mathcal{L}_{\text{MI}}$ para desplazar libremente los píxeles hacia la estructura de $C$, introduciendo de forma progresiva las restricciones perceptuales ($\mathcal{L}_{\text{LPIPS}}$ y $\mathcal{L}_{\text{Estilo}}$).
+\end{itemize}
+
+\subsection{Optimización iterativa}
+
+\noindent A diferencia de otros paradigmas basados en redes generativas, la red $\mathcal{N}_\theta$ no requiere ningún preentrenamiento previo sobre grandes bases de datos, sino que sus parámetros $\theta$ se optimizan directamente para el par de imágenes $(C, S)$ dado.
+
+\vspace{0.3cm}
+
+\noindent Para minimizar la función de coste global $\mathcal{L}_{\text{total}}$ se emplea un esquema iterativo basado en descenso de gradiente (implementado en la práctica mediante el optimizador adaptativo Adam). En cada iteración $k$, los parámetros $\theta$ de la red se actualizan avanzando en la dirección opuesta al gradiente de la pérdida:
 
 \[
-L_{IM} = - IM(I, S_{deformada})
+\theta^{k + 1} = \theta^k - \eta \nabla_{\theta} \mathcal{L}_{\text{total}}
 \]
 
-\noindent En el caso de este proyecto, el método empleado para la minimización es un método de pérdidas mediante gradiente, una conocida función de tipo \textit{loss function}, pero implementado por un método de gradiente. Iterativamente los parámetros $\theta$ de la red son actualizados siguiendo la siguiente fórmula 
-
-\[
-\theta + \mu \bigtriangledown_{\theta} L_{IM} \xrightarrow{} \theta
-\]
-
-\noindent donde $\mu$ representa el llamado coeficiente de aprendizaje. \vspace{0.2cm}
-
-\noindent Podemos observar que se trata de un método de gradiente general donde $\theta^{k + 1} = \mu \bigtriangledown_{\theta}L_{IM} + \theta^k$ donde el coeficiente de aprendizaje corresponde a la longitud de paso. \vspace{0.5cm}
-
-
-\noindent Finalmente, la salida de la función principal será la que llamaremos la imagen $S_{deformada}$ que cumple:
-
-\[
-S_{deformada} = S(x + D_x(x,y), y + D_y(x,y))
-\]
-
-\noindent es decir, la imagen S cuyos píxeles se ven desplazados unos ciertos valores en la dirección de optimización que maximiza la conservación de la información mutua entre ambas imágenes.
+\noindent donde $\eta$ representa la tasa de aprendizaje (\textit{learning rate}), que determina la longitud de paso en cada actualización. Tras completar el número de iteraciones fijado, la red converge hacia el campo óptimo $D^*$ que produce la imagen final $S_{\text{deformed}}$ con la estructura de $C$ y los píxeles reordenados de $S$.
 
 \section{Implementación}
 
@@ -201,8 +223,10 @@ Fecha de la actividad
 04/11/2026 & 1 & Adrián & Seguimiento 1: Decisión y redacción de la planificación y objetivos\\\hline
 07/11/2026 & & Adrián & Memoria: Estructura general de las definiciones matemáticas\\\hline
 10/11/2026 & 0,5 & Iván & Notebook: Configuración del entorno y carga de imágenes\\\hline
-11/11/2026 & & Adrián & Memoria: \\\hline
-12/11/2026 & 3 & Iván & Notebook: Desglose de la arquitectura\\\hline
+11/11/2026 & & Adrián & Memoria: Redacción inicial del planteamiento teórico\\\hline
+12/11/2026 & 3 & Iván & Notebook: Explicación e implementación del desglose de la arquitectura\\\hline
+14/11/2026 & & Adrián & Notebook: Explicación e implementación inicial del bucle de optimización\\\hline
+15/11/2026 & 2,5 & Iván & Memoria: Ampliación y revisión del planteamiento teórico\\\hline
 & & & \\\hline
 & & & \\\hline
 & & & \\\hline

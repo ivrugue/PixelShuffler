@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.11.10)  10 NOV 2026 13:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.11.10)  15 NOV 2026 20:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -440,43 +440,63 @@ Package hyperref Info: Link coloring ON on input line 28.
 \openout3 = `main.out'.
 
 Package babel Info: Main language set to 'spanish'.
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 50.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 51.
  (c:/texlive/2026/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 50.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 51.
  (c:/texlive/2026/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 50.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 51.
  (c:/texlive/2026/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 50.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 51.
  (c:/texlive/2026/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 50.
+(Font)              <10> on input line 51.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 50.
+(Font)              <7> on input line 51.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 50.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 50.
+(Font)              <5> on input line 51.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 51.
  (c:/texlive/2026/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 50.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 51.
  (c:/texlive/2026/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (15.5887pt too wide) in paragraph at lines 76--77
-[]\T1/lmr/m/it/10 donde $\OML/lmm/m/it/10 D[]\OT1/lmr/m/n/10 (\OML/lmm/m/it/10 x; y\OT1/lmr/m/n/10 )$\T1/lmr/m/it/10 , $\OML/lmm/m/it/10 D[]\OT1/lmr/m/n/10 (\OML/lmm/m/it/10 x; y\OT1/lmr/m/n/10 )$ \T1/lmr/m/it/10 re-pre-sen-tan los des-pla-za-mien-tos ho-ri-zon-ta-les y ver-ti-ca-les ,res-pec-ti-va-men-te,
+Overfull \hbox (3.8892pt too wide) in paragraph at lines 55--56
+\T1/lmr/m/n/10 Para for-ma-li-zar ma-te-má-ti-ca-men-te el es-pa-cio de tra-ba-jo, de-no-ta-re-mos me-dian-te $\U/msb/m/n/10 R[]$ \T1/lmr/m/n/10 al con-jun-to
  []
 
 [1
 
-{c:/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}] [2{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}] [3] (C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4Âº CARRERA/PID/PixelShuffler/build/main.aux
+{c:/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}]
+Overfull \hbox (12.56418pt too wide) in paragraph at lines 87--88
+[]\T1/lmr/m/it/10 Llamaremos cam-po de de-for-ma-ción $\OML/lmm/m/it/10 D$ \T1/lmr/m/it/10 al cam-po vec-to-rial de des-pla-za-mien-tos aso-cia-do
+ []
+
+
+Overfull \hbox (35.10951pt too wide) in paragraph at lines 95--96
+\T1/lmr/m/it/10 donde $\OT1/lmr/m/n/10 ^^A\OML/lmm/m/it/10 x$ \T1/lmr/m/it/10 y $\OT1/lmr/m/n/10 ^^A\OML/lmm/m/it/10 y$ \T1/lmr/m/it/10 re-pre-sen-tan los des-pla-za-mien-tos ho-ri-zon-ta-les y ver-ti-ca-les en el pun-to $\OT1/lmr/m/n/10 (\OML/lmm/m/it/10 x; y\OT1/lmr/m/n/10 )$\T1/lmr/m/it/10 , res-pec-ti-va-men-te,
+ []
+
+[2{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}]
+Overfull \hbox (5.21068pt too wide) in paragraph at lines 151--152
+\T1/lmr/m/n/10 Adicionalmente, pa-ra con-tro-lar el com-pro-mi-so en-tre fi-de-li-dad geo-mé-tri-ca, ri-que-za tex-tu-ral y sua-vi-dad
+ []
+
+
+Overfull \hbox (7.23253pt too wide) in paragraph at lines 157--158
+[]$\OMS/lmsy/m/n/10 L[]$ \T1/lmr/m/n/10 mi-de la dis-tan-cia per-cep-tual es-truc-tu-ral en-tre $\OML/lmm/m/it/10 C$ \T1/lmr/m/n/10 y $\OML/lmm/m/it/10 S[]$ \T1/lmr/m/n/10 com-pa-ran-do las ac-ti-va-cio-nes
+ []
+
+[3] [4] [5] (C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4Âº CARRERA/PID/PixelShuffler/build/main.aux
 LaTeX Info: Redefining \. on input line 11.
 LaTeX Info: Redefining \% on input line 11.
 )
@@ -485,21 +505,21 @@ LaTeX2e <2026-11-01>
 L3 programming layer <2026-09-09>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 02623FEA4F866D377A310BF328EA38A0;1420.
+(rerunfilecheck)             Checksum: C39115E20FEDB2A9477AEE1AF7F8BCF7;3148.
  ) 
 Here is how much of TeX's memory you used:
- 12564 strings out of 468448
- 199111 string characters out of 5442048
- 653216 words of memory out of 5000000
- 41605 multiletter control sequences out of 15000+600000
- 700358 words of font info for 75 fonts, out of 8000000 for 9000
+ 12586 strings out of 468448
+ 199474 string characters out of 5442048
+ 653222 words of memory out of 5000000
+ 41619 multiletter control sequences out of 15000+600000
+ 696087 words of font info for 74 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 74i,11n,83p,440b,538s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx9.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi5.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4Âº CARRERA/PID/PixelShuffler/build/main.pdf" (3 pages, 299190 bytes).
+ 74i,11n,83p,1193b,538s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx9.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi5.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on "C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4Âº CARRERA/PID/PixelShuffler/build/main.pdf" (5 pages, 304205 bytes).
 PDF statistics:
- 171 PDF objects out of 1000 (max. 8388607)
- 128 compressed objects within 2 object streams
- 22 named destinations out of 1000 (max. 500000)
- 81 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 207 PDF objects out of 1000 (max. 8388607)
+ 163 compressed objects within 2 object streams
+ 31 named destinations out of 1000 (max. 500000)
+ 137 words of extra memory for PDF output out of 10000 (max. 10000000)
 
