@@ -148,15 +148,16 @@ Sean $X$ e $Y$ dos variables aleatorias. Entonces:
 
 \[\mathcal{L}_{\text{MI}} = - I(C; S_{\text{deformed}})\]
 
-\noindent Adicionalmente, para controlar el compromiso entre fidelidad geométrica, riqueza textural y suavidad del campo de vectores, la función de coste total $\mathcal{L}_{\text{total}}$ integra términos complementarios ponderados mediante pesos configurables:
+\noindent Adicionalmente, para controlar el compromiso entre fidelidad geométrica, riqueza textural, suavidad del campo de vectores y consistencia lumínica, la función de coste total $\mathcal{L}_{\text{total}}$ integra términos complementarios ponderados mediante pesos configurables:
 
-\[\mathcal{L}_{\text{total}} = \alpha \, \mathcal{L}_{\text{MI}} + \beta \, (w_i \cdot \mathcal{L}_{\text{LPIPS}}) + \gamma \, (w_i \cdot \mathcal{L}_{\text{Estilo}}) + \lambda \, \mathcal{L}_{\text{Reg}}\]
+\[\mathcal{L}_{\text{total}} = \alpha \, \mathcal{L}_{\text{MI}} + \beta \, (w_i \cdot \mathcal{L}_{\text{LPIPS}}) + \gamma \, (w_i \cdot \mathcal{L}_{\text{Estilo}}) + \delta \, \mathcal{L}_{\text{Reg}} + \lambda \, \mathcal{L}_{\text{Lum}}\]
 
 \noindent donde:
 \begin{itemize}
     \item $\mathcal{L}_{\text{LPIPS}}$ mide la distancia perceptual estructural entre $C$ y $S_{\text{deformed}}$ comparando las activaciones internas de una red preentrenada en cada posición de la imagen, evitando distorsiones geométricas graves.
     \item $\mathcal{L}_{\text{Estilo}}$ evalúa la similitud cromática y textural respecto a $S$ a partir de los mapas de características $F \in \mathbb{R}^{N_c \times M}$ (con $N_c$ canales y $M = H \cdot W$ posiciones espaciales) extraídos por una red preentrenada, bien mediante sus estadísticos globales de activación (medias y desviaciones típicas), o bien mediante matrices de correlación de Gram ($G = F \cdot F^T$).
     \item $\mathcal{L}_{\text{Reg}}$ penaliza sobre el campo $D$ las variaciones espaciales bruscas de primer orden (que evita estiramientos o compresiones excesivas entre píxeles vecinos) o las curvaturas pronunciadas de segundo orden (que evita pliegues o dobleces irregulares), garantizando desplazamientos suaves y continuos.
+    \item $\mathcal{L}_{\text{Lum}}$ mide la diferencia media absoluta ($L_1$) entre los mapas de luminancia ($Y = 0.299R + 0.587G + 0.114B$) de $C$ y $S_{\text{deformed}}$. Dado que la información mutua evalúa solo dependencias estadísticas sin distinguir si una región es clara u oscura, en ocasiones invierte el brillo natural de la escena, oscureciendo zonas iluminadas o viceversa. Este término penaliza dichas discrepancias para asegurar que la distribución de luces y sombras respete la de la imagen de contenido.
     \item $w_i \in [0, 0.1]$ es un factor de ponderación temporal creciente a lo largo de las iteraciones $i$ que permite que en las primeras épocas domine $\mathcal{L}_{\text{MI}}$ para desplazar libremente los píxeles hacia la estructura de $C$, introduciendo de forma progresiva las restricciones perceptuales ($\mathcal{L}_{\text{LPIPS}}$ y $\mathcal{L}_{\text{Estilo}}$).
 \end{itemize}
 
