@@ -5,7 +5,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-\usepackage{tabularx}
+\usepackage{longtable}
 \usepackage[none]{hyphenat}
 \usepackage[table]{xcolor}
 
@@ -167,7 +167,7 @@ Sean $X$ e $Y$ dos variables aleatorias. Entonces:
 
 \vspace{0.3cm}
 
-\noindent Para minimizar la función de coste global $\mathcal{L}_{\text{total}}$ se emplea un esquema iterativo basado en descenso de gradiente (implementado en la práctica mediante el optimizador adaptativo Adam). En cada iteración $k$, los parámetros $\theta$ de la red se actualizan avanzando en la dirección opuesta al gradiente de la pérdida:
+\noindent Para minimizar la función de coste global $\mathcal{L}_{\text{total}}$ se emplea un esquema iterativo basado en descenso de gradiente. En cada iteración $k$, los parámetros $\theta$ de la red se actualizan avanzando en la dirección opuesta al gradiente de la pérdida:
 
 \[
 \theta^{k + 1} = \theta^k - \eta \nabla_{\theta} \mathcal{L}_{\text{total}}
@@ -177,7 +177,93 @@ Sean $X$ e $Y$ dos variables aleatorias. Entonces:
 
 \section{Implementación}
 
-Comenzando con la explicación de la implementación, en primer lugar podemos fijarnos en el archivo \textit{deform\_losses.py} donde se implementan los métodos usados para calcular el gradiente y las pérdidas o errores de las aproximaciones. En la primera función podemos observar que se calcula el gradiente de un tensor en una sola dimensión como el incremento entre el valor que lo prosigue y el que lo antecede. En otras dos funciones calcula el GradEnergyLoss y la BendingEnergyLoss que corresponden a la suma de los gradientes al cuadrado (en media en caso de especificarselo) y en otro caso a la suma de los gradientes de los gradientes al cuadradado, respectivamente. Estas se utilizan para informar sobre las variaciones en cuanto a la pérdida (evita fluctuaciones o diferencias muy grandes) en el caso de GradEnergyLoss y sobre la curvatura del espacio con respecto a las diferencias. Tener en cuenta ambas magnitudes permite que la minimización se haga de una manera suave y contínua, sin crear huecos de incosistencia o diferencias bruscas donde se generen "picos".
+\subsection{Entorno tecnológico}
+
+\noindent El desarrollo práctico de este proyecto parte de una bifurcación del repositorio oficial publicado por el autor del artículo original (\href{https://github.com/OmarSZamzam/PixelShuffler}{OmarSZamzam/PixelShuffler}), alojada en nuestro repositorio de GitHub (\href{https://github.com/ivrugue/PixelShuffler}{ivrugue/PixelShuffler}). Sobre esta base de código en Python, se ha estructurado tanto la refactorización modular de los archivos fuente como el entorno de ejecución interactivo en un notebook de Jupyter diseñado para ser ejecutado en Google Colab.
+
+\vspace{0.3cm}
+
+\noindent Para la ejecución eficiente del algoritmo de deformación continua se ha utilizado aceleración por hardware mediante GPU (CUDA), garantizando además la reproducibilidad exacta de los experimentos mediante el bloqueo determinista de los generadores de números pseudoaleatorios en Python, NumPy, PyTorch y cuDNN (\texttt{set\_seed}).
+
+\vspace{0.3cm}
+
+\noindent El ecosistema de bibliotecas empleadas y su función específica dentro de la arquitectura del sistema se detallan a continuación:
+
+\begin{itemize}
+    \item \textbf{PyTorch y Torchvision (\texttt{torch}, \texttt{torchvision}):} Constituyen el núcleo computacional del proyecto. Gestionan los tensores multidimensionales en memoria gráfica, construyen el grafo dinámico de diferenciación automática (\textit{autograd}) para la retropropagación, implementan el optimizador adaptativo Adam y proveen la red convolucional VGG-19 preentrenada sobre ImageNet empleada como extractor fijo de características de estilo.
+    
+    \item \textbf{MONAI (\texttt{monai}):} Biblioteca especializada en visión artificial y registro deformable de imágenes sobre PyTorch. De ella se extraen los componentes estructurales del método: la arquitectura neuronal \texttt{UNet} (configurada en 2D con $6$ canales de entrada y $2$ de salida), el integrador numérico de campos de velocidad a desplazamiento (\texttt{DVF2DDF}), la capa de remuestreo espacial diferenciable (\texttt{Warp}) y la función objetivo de Información Mutua Global (\texttt{GlobalMutualInformationLoss}).
+    
+    \item \textbf{Torchinfo (\texttt{torchinfo}):} Utilizada para auditar la estructura interna de la red \texttt{UNet}, verificar las dimensiones tensoriales intermedias y cuantificar su número de parámetros entrenables y huella de memoria gráfica.
+
+    \item \textbf{LPIPS (\texttt{lpips}):} Implementa la métrica y función de coste de similitud perceptual (\textit{Learned Perceptual Image Patch Similarity}) apoyándose en una red AlexNet preentrenada y congelada, utilizada tanto para restringir la distorsión geométrica durante la optimización como para evaluar cuantitativamente la preservación estructural final.
+    
+    \item \textbf{Pillow, NumPy y Matplotlib (\texttt{PIL}, \texttt{numpy}, \texttt{matplotlib}):} Encargadas de la decodificación y preprocesamiento inicial de archivos de imagen (redimensionado, recorte centrado y conversión de espacios), la manipulación matricial de los campos vectoriales en CPU y la generación de las gráficas de convergencia, mapas de calor y campos de flechas (\textit{quiver plots}).
+
+    \item \textbf{Datasets y Pandas (\texttt{datasets}, \texttt{pandas}):} Incorporadas en nuestra extensión experimental para automatizar la descarga y filtrado en \textit{streaming} de subconjuntos de validación de COCO y WikiArt, y registrar de forma estructurada en formato CSV las métricas de cada ejecución del \textit{benchmark}.
+\end{itemize}
+
+\subsection{Arquitectura y modularización del proyecto}
+
+\noindent El repositorio oficial de \textit{PixelShuffler} presenta una estructura compacta orientada a su ejecución directa desde la línea de comandos, donde la mayor parte de la lógica algorítmica queda encapsulada dentro de una única función monolítica (\texttt{style\_transfer.py}). La arquitectura heredada del repositorio original se organiza en tres componentes principales:
+
+\begin{itemize}
+    \item \textbf{Script principal (\texttt{style\_transfer.py}):} Gestiona el análisis de argumentos por consola (\texttt{argparse}), la instanciación de la red \texttt{UNet} y del optimizador Adam, el bucle iterativo de entrenamiento y el guardado en disco de la imagen resultante.
+    
+    \item \textbf{Módulo de utilidades y pérdidas (\texttt{utils.py}):} Centraliza el preprocesamiento y conversión de tensores (\texttt{load\_image}, \texttt{tensor\_to\_numpy}), el control de reproducibilidad (\texttt{set\_seed}), la integración numérica de campos vectoriales (\texttt{dvf\_to\_ddf}) y el cálculo de las pérdidas de estilo mediante extractores VGG-19 (\texttt{compute\_style\_loss} y \texttt{gram\_style\_loss}).
+    
+    \item \textbf{Módulo de redes y regularización (\texttt{networks/}):} Contiene las definiciones de arquitecturas neuronales (\texttt{networks.py}) y las funciones de regularización espacial de primer y segundo orden sobre campos de deformación (\texttt{deform\_losses.py}: \texttt{GradEnergyLoss} y \texttt{BendingEnergyLoss}).
+\end{itemize}
+
+\vspace{0.3cm}
+
+\noindent Para cumplir con el objetivo didáctico y experimental de este trabajo, se ha conservado la compatibilidad con los módulos base del repositorio y, simultáneamente, se ha refactorizado el flujo completo en un cuaderno interactivo (\texttt{notebook\_didactico.ipynb}) bajo un diseño modular desacoplado. De esta forma separamos la construcción de cada bloque matemático del ciclo de optimización, evitando dependencias de variables globales y garantizando que cada experimento parta de un estado limpio:
+
+\begin{itemize}
+    \item \textbf{Funciones constructoras:} Se han aislado en funciones independientes la carga y normalización de imágenes (\texttt{cargar\_img}), la concatenación por canales (\texttt{apilar\_canales}), la instanciación desde cero de la red neuronal (\texttt{crear\_unet}), la capa de deformación física (\texttt{crear\_warp\_layer}) y el optimizador (\texttt{crear\_optimizador}).
+    
+    \item \textbf{Evaluador de costes (\texttt{calcular\_total\_loss}):} Centraliza el cálculo ponderado de todas las pérdidas activas fuera del bucle principal, facilitando su reutilización e inspección aislada.
+    
+    \item \textbf{Bucle principal reutilizable (\texttt{style\_transfer}):} Encapsula el proceso iterativo de optimización en una única interfaz de alto nivel que acepta tanto los hiperparámetros de entrenamiento como funciones externas de monitorización (\textit{callbacks}), evitando duplicar código entre experimentos.
+\end{itemize}
+
+\subsection{Flujo de ejecución}
+
+\noindent El procesamiento completo desde las imágenes de entrada hasta el resultado estilizado sigue una secuencia lineal dividida en una fase de inicialización y un ciclo iterativo de optimización:
+
+\begin{enumerate}
+    \item \textbf{Preprocesamiento y preparación de tensores:} Las imágenes de contenido $C$ y estilo $S$ se escalan y recortan simétricamente al centro a una resolución cuadrada común ($H \times W$), normalizando sus intensidades al intervalo $[0, 1]$ y disponiéndolas en tensores con formato convolucional $[1, 3, H, W]$ en memoria gráfica.
+    
+    \item \textbf{Instanciación del modelo y del planificador:} Se inicializan desde cero los pesos $\theta$ de la red \texttt{UNet} ($\approx 1,25\text{ millones}$ de parámetros), la capa \texttt{Warp}, el optimizador adaptativo Adam y la rampa lineal $w_i \in [0, 0,1]$ que regulará progresivamente el peso de las pérdidas perceptuales durante el entrenamiento.
+    
+    \item \textbf{Cálculo del campo de desplazamiento:} En cada iteración, tras reiniciar los gradientes acumulados, la imagen móvil actual y la imagen de contenido fija se apilan por canales formando un único tensor de entrada de dimensión $[1, 6, H, W]$. La red \texttt{UNet} procesa este tensor y estima un campo inicial de movimiento (\texttt{dvf}), que la función \texttt{dvf\_to\_ddf} transforma en el mapa final de desplazamientos $D(x, y)$ (\texttt{ddf}) de $2$ canales $(\Delta x, \Delta y)$ para asegurar una deformación suave y sin cruces caóticos entre píxeles.
+    
+    \item \textbf{Deformación de la imagen de estilo:} La capa \texttt{Warp} aplica el campo $D(x, y)$ sobre la imagen móvil mediante interpolación bilineal con replicación de bordes, generando la imagen deformada $S_{\text{deformed}}$ en las nuevas coordenadas continuas sin romper el grafo de gradientes.
+    
+    \item \textbf{Evaluación de costes y actualización de pesos:} Se calcula la pérdida global $\mathcal{L}_{\text{total}}$ combinando los resultados de las funciones de coste activas ponderados. Mediante propagación hacia atrás, el gradiente $\nabla_{\theta}\mathcal{L}_{\text{total}}$ recorre en sentido inverso el grafo computacional para que Adam actualice los pesos $\theta$ de la \texttt{UNet}. Finalmente, la imagen deformada resultante se desvincula del grafo (\texttt{detach}) y pasa a ser la entrada móvil de la siguiente época.
+\end{enumerate}
+
+\subsection{Aportaciones originales}
+
+\noindent Con el objetivo de superar las limitaciones del método original y transformar \textit{PixelShuffler} en una herramienta flexible de análisis y experimentación, se han desarrollado las siguientes aportaciones originales sobre el código base:
+
+\begin{itemize}
+    \item \textbf{Parametrización dinámica de la función de coste:} Mientras que el repositorio original emplea ponderaciones fijas codificadas internamente en el bucle principal, se ha desacoplado la función objetivo en el módulo \texttt{calcular\_total\_loss} mediante cinco hiperparámetros configurables ($\alpha, \beta, \gamma, \delta, \lambda$). Esto permite activar, combinar o anular selectivamente cada término de pérdida y evitar evaluaciones innecesarias cuando algún peso sea nulo.
+    
+    \item \textbf{Integración y optimización de módulos desacoplados:} Se han añadido al flujo principal dos formulaciones matemáticas presentes en los archivos auxiliares del repositorio pero sin uso en su ejecución original:
+    \begin{itemize}
+        \item \textbf{Matrices de Gram:} Se ha incluido la función de pérdida de estilo por correlación espacial (\texttt{gram\_style\_loss} de \texttt{utils.py}) como alternativa a los estadísticos de activación por defecto. Además, al detectar que la implementación original reinstanciaba la red VGG-19 en cada iteración, lo que penalizaba el tiempo de cómputo, se ha reprogramado en \texttt{gram\_style\_loss\_rapida} precargando y congelando el extractor una única vez en memoria gráfica.
+        \item \textbf{Regularización espacial del campo vectorial:} Se han conectado las funciones \texttt{GradEnergyLoss} (derivada de primer orden) y \texttt{BendingEnergyLoss} (curvatura de segundo orden) del módulo \texttt{networks/deform\_losses.py} para permitir suavizar el campo de desplazamientos $D(x, y)$ y prevenir estiramientos o pliegues irregulares entre píxeles vecinos.
+    \end{itemize}
+    
+    \item \textbf{Pérdida de consistencia de luminancia ($\mathcal{L}_{\text{Lum}}$):} Probando el código original, detectamos que en ocasiones se asignaban tonos oscuros de la imagen de estilo a regiones luminosas del contenido (y viceversa), dando resultados poco naturales a pesar de mantener la estructura original, ya que la Información Mutua evalúa únicamente dependencias estadísticas y es invariante frente a inversiones de contraste. Por ello se ha diseñado e incorporado una función de pérdida propia (\texttt{luminance\_loss}) que calcula la diferencia media absoluta ($L_1$) sobre el canal de luminancia perceptual entre $S_{\text{deformed}}$ y $C$ para preservar la distribución natural de luces y sombras.
+    
+    \item \textbf{Seguimiento de la evolución y visualización del movimiento:} A diferencia del script original, que solo devuelve la imagen final, hemos añadido herramientas para ver qué ocurre durante el entrenamiento:
+    \begin{itemize}
+        \item \textbf{Registro de etapas intermedias:} Pasamos como parámetro al bucle principal una función observadora (\texttt{crear\_observador\_evolucion}) que guarda en memoria cómo va cambiando la pérdida en cada época y captura tanto la imagen como el campo de desplazamientos en varias etapas clave.
+        \item \textbf{Gráficas de evolución y vectores:} A partir de esos datos guardados, hemos creado una función para dibujar la curva con la evolución del error (\texttt{visualizar\_convergencia}) y otra para mostrar, junto a cada imagen intermedia, un mapa de calor y las flechas del campo de deformación que indican hacia dónde y con qué intensidad se mueven los píxeles (\texttt{visualizar\_evolucion\_y\_campo}).
+    \end{itemize}
+\end{itemize}
 
 \section{Experimentación}
 
@@ -201,8 +287,7 @@ Comenzando con la explicación de la implementación, en primer lugar podemos fi
 
 \section{Tabla de tiempos}
 
-\begin{center}
-\begin{tabularx}{\textwidth}{|c|c|c|>{\centering\arraybackslash}X|}
+\begin{longtable}{|c|c|c|>{\centering\arraybackslash}p{0.52\textwidth}|}
 \hline
 \rowcolor{gray!20}
 Fecha de la actividad
@@ -210,6 +295,23 @@ Fecha de la actividad
 & Miembro
 & Actividad realizada
 \\\hline
+\endfirsthead
+
+\hline
+\rowcolor{gray!20}
+Fecha de la actividad
+& Tiempo (h)
+& Miembro
+& Actividad realizada
+\\\hline
+\endhead
+
+\hline
+\endfoot
+
+\hline
+\endlastfoot
+
 07/10/2026 & 2 & Iván & Búsqueda de tema\\\hline
 07/10/2026 & 2 & Adrián & Búsqueda de tema\\\hline
 08/10/2026 & 1,5 & Luis & Búsqueda de tema\\\hline
@@ -241,12 +343,12 @@ Fecha de la actividad
 18/11/2026 & 1 & Adrián & Notebook: Comienzo de funciones de benchmark\\\hline
 18/11/2026 & 1,5 & Iván & Notebook: Separación de bucle principal del observador de etapas y pruebas iniciales\\\hline
 18/11/2026 & 0,5 & Iván & Notebook: Detección y corrección de error de instanciación de VGG\\\hline
-18/11/2026 & 1 & Luis & Notebook: Explicación de nuevas funciones añadidas\\\hline
+18/11/2026 & 1 & Luis & Notebook: Explicación de las funciones de observación y visualización\\\hline
+19/11/2026 & 1,25 & Iván & Memoria: Redacción de la implementación\\\hline
+19/11/2026 & 0,75 & Iván & Seguimiento 2: Redacción del documento\\\hline
 & & & \\\hline
 & & & \\\hline
-& & & \\\hline
-\end{tabularx}
-\end{center}
+\end{longtable}
 
 
 \begin{thebibliography}{10}
