@@ -40,39 +40,39 @@ PixelShuffler, transferencia de estilo, traducción imagen a imagen, Informació
 
 \section{Introducción}
 
-\noindent La traducción imagen a imagen es una de las áreas principales dentro de la visión artificial y el procesamiento digital de imágenes. Su objetivo consiste en transformar una imagen de entrada hacia otro dominio visual, conservando la estructura y las formas de la escena original mientras adopta los colores, las texturas o el aspecto del dominio destino. Dentro de este campo destaca la transferencia de estilo artístico, cuyo propósito es combinar el contenido estructural de una fotografía con el estilo visual de una obra de arte.
+\noindent La traducción imagen a imagen es una de las áreas principales dentro de la visión artificial y el procesamiento digital de imágenes. Su objetivo consiste en transformar una imagen de entrada hacia otro dominio visual, conservando la estructura y las formas de la escena original mientras adopta los colores, las texturas o el aspecto del dominio destino. Dentro de este campo destaca la transferencia de estilo artístico, cuyo propósito es combinar el contenido estructural de una fotografía con el estilo visual de una obra de arte \cite{gatys2015neural}.
 
 \vspace{0.3cm}
 
-\noindent Desde los primeros métodos basados en redes neuronales convolucionales (CNNs), la literatura ha evolucionado hacia modelos generativos cada vez más complejos, como las Redes Generativas Antagónicas (GANs), los modelos de difusión y los enfoques guiados por texto. Aunque estas técnicas logran resultados muy vistosos, presentan varias limitaciones prácticas, puesto que requieren arquitecturas pesadas, un alto coste computacional, entrenamientos previos con grandes conjuntos de datos y, al generar nuevos píxeles desde cero, a menudo alteran la geometría original o introducen artefactos sobre los detalles finos del contenido.
+\noindent Desde los primeros métodos basados en redes neuronales convolucionales (CNNs) \cite{gatys2015neural}, la literatura ha evolucionado hacia modelos generativos cada vez más complejos, como las Redes Generativas Antagónicas (GANs) \cite{zhu2017unpaired}, los modelos de difusión \cite{chung2024style} y los enfoques guiados por texto. Aunque estas técnicas logran resultados muy vistosos, presentan varias limitaciones prácticas, puesto que requieren arquitecturas pesadas, un alto coste computacional, entrenamientos previos con grandes conjuntos de datos y, al generar nuevos píxeles desde cero, a menudo alteran la geometría original o introducen artefactos sobre los detalles finos del contenido \cite{zamzam2025pixelshuffler}.
 
 \vspace{0.3cm}
 
-\noindent Como alternativa frente a estos métodos, el artículo \textit{``PixelShuffler: A Simple Image Translation Through Pixel Rearrangement''} (Omar Zamzam, IEEE ICIP 2025) propone abordar la transferencia de estilo mediante la reordenación espacial continua de los propios píxeles de la imagen de estilo. En lugar de sintetizar colores nuevos, el método utiliza una red neuronal ligera de arquitectura U-Net que estima un campo vectorial de desplazamientos para deformar la imagen de estilo y adaptarla a las siluetas del contenido. Este proceso se guía maximizando la Información Mutua entre ambas imágenes, lo que permite conservar de forma natural la paleta de colores del estilo y mantener una buena fidelidad estructural sin necesidad de preentrenamiento previo.
+\noindent Como alternativa frente a estos métodos, el artículo \textit{``PixelShuffler: A Simple Image Translation Through Pixel Rearrangement''} (Omar Zamzam, IEEE ICIP 2025) \cite{zamzam2025pixelshuffler} propone abordar la transferencia de estilo mediante la reordenación espacial continua de los propios píxeles de la imagen de estilo. En lugar de sintetizar colores nuevos, el método utiliza una red neuronal ligera de arquitectura U-Net \cite{ronneberger2015unet} que estima un campo vectorial de desplazamientos para deformar la imagen de estilo y adaptarla a las siluetas del contenido. Este proceso se guía maximizando la Información Mutua entre ambas imágenes, lo que permite conservar de forma natural la paleta de colores del estilo y mantener una buena fidelidad estructural sin necesidad de preentrenamiento previo \cite{zamzam2025pixelshuffler}.
 
 \vspace{0.3cm}
 
-\noindent En el marco de la asignatura de Procesamiento de Imágenes Digitales, este trabajo tiene como objetivo analizar, explicar de forma didáctica y ampliar experimentalmente la propuesta de \mbox{\textit{PixelShuffler}}. Sobre esta base, se ha trasladado el flujo original a un entorno interactivo en Jupyter Notebook que permite visualizar la evolución del proceso paso a paso y el comportamiento de los desplazamientos espaciales, al tiempo que se han incorporado mejoras en el código para flexibilizar la combinación de funciones de pérdida, corregir inversiones de brillo y mejorar el tiempo de ejecución. Finalmente, se realiza un estudio experimental con distintos parámetros y conjuntos de imágenes para evaluar tanto las ventajas como las limitaciones de este enfoque.
+\noindent En el marco de la asignatura de Procesamiento de Imágenes Digitales, este trabajo tiene como objetivo analizar, explicar de forma didáctica y ampliar experimentalmente la propuesta de \mbox{\textit{PixelShuffler}} \cite{zamzam2025pixelshuffler}. Sobre esta base, se ha trasladado el flujo original a un entorno interactivo en Jupyter Notebook que permite visualizar la evolución del proceso paso a paso y el comportamiento de los desplazamientos espaciales, al tiempo que se han incorporado mejoras en el código para flexibilizar la combinación de funciones de pérdida, corregir inversiones de brillo y mejorar el tiempo de ejecución. Finalmente, se realiza un estudio experimental con distintos parámetros y conjuntos de imágenes para evaluar tanto las ventajas como las limitaciones de este enfoque.
 
 \section{Planteamiento teórico}
 
 \subsection{Planteamiento del problema}
 
-\noindent El problema abordado consiste en realizar una transferencia de estilo entre dos imágenes digitales: una imagen de contenido $C$ y una imagen de estilo $S$. Nuestro objetivo final es generar una imagen resultante cuyo formato geométrico y estructural corresponda al de la imagen $C$, pero manteniendo la paleta cromática y los rasgos visuales de la imagen $S$ mediante la reordenación espacial de sus píxeles.
+\noindent El problema abordado consiste en realizar una transferencia de estilo entre dos imágenes digitales: una imagen de contenido $C$ y una imagen de estilo $S$ \cite{gatys2015neural, zamzam2025pixelshuffler}. Nuestro objetivo final es generar una imagen resultante cuyo formato geométrico y estructural corresponda al de la imagen $C$, pero manteniendo la paleta cromática y los rasgos visuales de la imagen $S$ mediante la reordenación espacial de sus píxeles \cite{zamzam2025pixelshuffler}.
 
 \vspace{0.3cm}
 
-\noindent Para formalizar matemáticamente el espacio de trabajo, denotaremos mediante $\mathbb{R}^{H \times W \times n}$ al conjunto de tensores tridimensionales (matrices de tres dimensiones) de alto $H$, ancho $W$ y $n$ canales. De este modo, las imágenes de entrada quedan representadas por los tensores $C \in \mathbb{R}^{H_c \times W_c \times 3}$ y $S \in \mathbb{R}^{H_s \times W_s \times 3}$, donde los $3$ canales corresponden al espacio de color estándar RGB. En la práctica, ambas imágenes se redimensionan y recortan previamente a una misma resolución espacial cuadrada $H \times W$ ($C, S \in \mathbb{R}^{H \times W \times 3}$) para poder operar conjuntamente sobre ellas.
+\noindent Para formalizar matemáticamente el espacio de trabajo, denotaremos mediante $\mathbb{R}^{H \times W \times n}$ al conjunto de tensores tridimensionales (matrices de tres dimensiones) de alto $H$, ancho $W$ y $n$ canales. De este modo, las imágenes de entrada quedan representadas por los tensores $C \in \mathbb{R}^{H_c \times W_c \times 3}$ y $S \in \mathbb{R}^{H_s \times W_s \times 3}$, donde los $3$ canales corresponden al espacio de color estándar RGB \cite{zamzam2025pixelshuffler}. En la práctica, ambas imágenes se redimensionan y recortan previamente a una misma resolución espacial cuadrada $H \times W$ ($C, S \in \mathbb{R}^{H \times W \times 3}$) para poder operar conjuntamente sobre ellas.
 
 \subsection{Transformación espacial de la imagen}
 
 \subsubsection{Estimación del campo de deformación}
 
-\noindent Para llevar a cabo la labor de deformación de la imagen de estilo $S$, se introduce una red neuronal de arquitectura U-Net parametrizada en función de sus pesos $\theta$. Esta arquitectura sigue un esquema en forma de «U» compuesto por dos ramas: una rama de contracción (\textit{encoder}) que reduce progresivamente la resolución espacial para captar la estructura global y las siluetas de la escena, y una rama de expansión (\textit{decoder}) que vuelve a ampliar el mapa hasta las dimensiones originales apoyándose en conexiones de salto (\textit{skip connections}), las cuales rescatan los bordes finos de las primeras capas para ajustar el desplazamiento píxel a píxel.
+\noindent Para llevar a cabo la labor de deformación de la imagen de estilo $S$, se introduce una red neuronal de arquitectura U-Net \cite{ronneberger2015unet} parametrizada en función de sus pesos $\theta$. Esta arquitectura sigue un esquema en forma de «U» compuesto por dos ramas: una rama de contracción (\textit{encoder}) que reduce progresivamente la resolución espacial para captar la estructura global y las siluetas de la escena, y una rama de expansión (\textit{decoder}) que vuelve a ampliar el mapa hasta las dimensiones originales apoyándose en conexiones de salto (\textit{skip connections}), las cuales rescatan los bordes finos de las primeras capas para ajustar el desplazamiento píxel a píxel \cite{ronneberger2015unet}.
 
 \vspace{0.3cm}
 
-\noindent La red $\mathcal{N}_\theta(C, S)$ recibe como entrada un tensor de 6 canales RGB resultado de la concatenación por canales de ambas imágenes y devuelve el campo de deformación asociado a la imagen $S$ para adoptar las formas de $C$:
+\noindent La red $\mathcal{N}_\theta(C, S)$ recibe como entrada un tensor de 6 canales RGB resultado de la concatenación por canales de ambas imágenes y devuelve el campo de deformación asociado a la imagen $S$ para adoptar las formas de $C$ \cite{zamzam2025pixelshuffler}:
 
 \[
 D = \mathcal{N}_\theta(C, S)
@@ -107,11 +107,11 @@ D : \Omega &\longrightarrow \mathbb{R}^2 \\
 
 \vspace{0.3cm}
 
-\noindent En el caso práctico, $D$ vendrá dado por un tensor $M_D \in \mathbb{R}^{H \times W \times 2}$, donde el canal 1 almacenará los desplazamientos horizontales $\Delta x$ y el canal 2 contendrá los desplazamientos verticales $\Delta y$.
+\noindent En el caso práctico, $D$ vendrá dado por un tensor $M_D \in \mathbb{R}^{H \times W \times 2}$, donde el canal 1 almacenará los desplazamientos horizontales $\Delta x$ y el canal 2 contendrá los desplazamientos verticales $\Delta y$ \cite{zamzam2025pixelshuffler}.
 
 \subsubsection{Remuestreo continuo y obtención de la imagen deformada}
 
-\noindent Una vez estimado el campo vectorial de desplazamientos $D$, se obtiene la imagen transformada $S_{\text{deformed}}$ evaluando la imagen de estilo original en las coordenadas desplazadas:
+\noindent Una vez estimado el campo vectorial de desplazamientos $D$, se obtiene la imagen transformada $S_{\text{deformed}}$ evaluando la imagen de estilo original en las coordenadas desplazadas \cite{zamzam2025pixelshuffler}:
 
 \[
 S_{\text{deformed}}(x, y) = S\big(x + \Delta x, \, y + \Delta y\big)
@@ -123,19 +123,19 @@ S_{\text{deformed}}(x, y) = S\big(x + \Delta x, \, y + \Delta y\big)
 
 \subsubsection{Fundamentos de teoría de la información}
 
-\noindent Para guiar el movimiento de los píxeles sin destruir la coherencia visual, el criterio principal del método se fundamenta en la teoría de la información.
+\noindent Para guiar el movimiento de los píxeles sin destruir la coherencia visual, el criterio principal del método se fundamenta en la teoría de la información \cite{shannon1948mathematical, viola1997alignment}.
 
 \begin{definicion}
-Sea $X$ una variable aleatoria discreta que toma valores en $D_k = \{x_1, x_2, \dots, x_k\}$ con distribución de probabilidad $P_X$, se define la entropía de $X$ como:
+Sea $X$ una variable aleatoria discreta que toma valores en $D_k = \{x_1, x_2, \dots, x_k\}$ con distribución de probabilidad $P_X$, se define la entropía de $X$ como \cite{shannon1948mathematical}:
 \[H_X = E\big(-\ln(P_X(x))\big) = -\sum_{x_i \in D_k} P_X(x_i)\ln(P_X(x_i))\]
 \end{definicion}
 
-\noindent La entropía mide el grado de incertidumbre promedio sobre la variable $X$. De forma análoga, dada otra variable aleatoria $Y$, la entropía condicional $H_{X\vert{}Y}$ cuantifica la incertidumbre restante sobre $X$ una vez conocido el valor de $Y$.
+\noindent La entropía mide el grado de incertidumbre promedio sobre la variable $X$. De forma análoga, dada otra variable aleatoria $Y$, la entropía condicional $H_{X\vert{}Y}$ cuantifica la incertidumbre restante sobre $X$ una vez conocido el valor de $Y$ \cite{shannon1948mathematical}.
 
 \vspace{0.3cm}
 
 \begin{definicion}
-Sean $X$ e $Y$ dos variables aleatorias, definimos la información mutua entre ellas como:
+Sean $X$ e $Y$ dos variables aleatorias, definimos la información mutua entre ellas como \cite{shannon1948mathematical, viola1997alignment}:
 \[I(X; Y) = H_X - H_{X\vert{}Y}\]
 
 \noindent Esta magnitud cuantifica la dependencia estadística entre $X$ e $Y$, indicando hasta qué punto conocer el valor de una de las variables nos permite predecir o reducir la incertidumbre sobre la otra.
@@ -150,11 +150,11 @@ Sean $X$ e $Y$ dos variables aleatorias. Entonces:
 
 \vspace{0.3cm}
 
-\noindent Dado que la información mutua es siempre no negativa, el valor cero marca el límite inferior de ausencia total de relación estructural entre dos imágenes. Por tanto, maximizar $I(C; S_{\text{deformed}})$ aleja ambas imágenes de la independencia estadística, obligando a que los contornos y regiones de $S_{\text{deformed}}$ se alineen con los de $C$ sin exigir que sus colores RGB coincidan numéricamente.
+\noindent Dado que la información mutua es siempre no negativa, el valor cero marca el límite inferior de ausencia total de relación estructural entre dos imágenes. Por tanto, maximizar $I(C; S_{\text{deformed}})$ aleja ambas imágenes de la independencia estadística, obligando a que los contornos y regiones de $S_{\text{deformed}}$ se alineen con los de $C$ sin exigir que sus colores RGB coincidan numéricamente \cite{viola1997alignment, zamzam2025pixelshuffler}.
 
 \subsubsection{Formulación de las funciones de coste}
 
-\noindent Los algoritmos usuales de aprendizaje automático se encargan de minimizar una función de pérdida. Como nuestro objetivo es maximizar la información mutua entre la imagen de contenido $C$ y la imagen de estilo transformada $S_{\text{deformed}}$, basta con cambiar el signo de la función a maximizar para formularlo como un problema de minimización:
+\noindent Los algoritmos usuales de aprendizaje automático se encargan de minimizar una función de pérdida. Como nuestro objetivo es maximizar la información mutua entre la imagen de contenido $C$ y la imagen de estilo transformada $S_{\text{deformed}}$, basta con cambiar el signo de la función a maximizar para formularlo como un problema de minimización \cite{zamzam2025pixelshuffler}:
 
 \[\mathcal{L}_{\text{MI}} = - I(C; S_{\text{deformed}})\]
 
@@ -164,32 +164,32 @@ Sean $X$ e $Y$ dos variables aleatorias. Entonces:
 
 \noindent donde:
 \begin{itemize}
-    \item $\mathcal{L}_{\text{LPIPS}}$ mide la distancia perceptual estructural entre $C$ y $S_{\text{deformed}}$ comparando las activaciones internas de una red preentrenada en cada posición de la imagen, evitando distorsiones geométricas graves.
-    \item $\mathcal{L}_{\text{Estilo}}$ evalúa la similitud cromática y textural respecto a $S$ a partir de los mapas de características $F \in \mathbb{R}^{N_c \times M}$ (con $N_c$ canales y $M = H \cdot W$ posiciones espaciales) extraídos por una red preentrenada, bien mediante sus estadísticos globales de activación (medias y desviaciones típicas), o bien mediante matrices de correlación de Gram ($G = F \cdot F^T$).
+    \item $\mathcal{L}_{\text{LPIPS}}$ mide la distancia perceptual estructural entre $C$ y $S_{\text{deformed}}$ comparando las activaciones internas de una red preentrenada en cada posición de la imagen, evitando distorsiones geométricas graves \cite{zhang2018unreasonable}.
+    \item $\mathcal{L}_{\text{Estilo}}$ evalúa la similitud cromática y textural respecto a $S$ a partir de los mapas de características $F \in \mathbb{R}^{N_c \times M}$ (con $N_c$ canales y $M = H \cdot W$ posiciones espaciales) extraídos por una red preentrenada, bien mediante sus estadísticos globales de activación (medias y desviaciones típicas) \cite{huang2017arbitrary}, o bien mediante matrices de correlación de Gram ($G = F \cdot F^T$) \cite{gatys2015neural}.
     \item $\mathcal{L}_{\text{Reg}}$ penaliza sobre el campo $D$ las variaciones espaciales bruscas de primer orden (que evita estiramientos o compresiones excesivas entre píxeles vecinos) o las curvaturas pronunciadas de segundo orden (que evita pliegues o dobleces irregulares), garantizando desplazamientos suaves y continuos.
-    \item $\mathcal{L}_{\text{Lum}}$ mide la diferencia media absoluta ($L_1$) entre los mapas de luminancia ($Y = 0.299R + 0.587G + 0.114B$) de $C$ y $S_{\text{deformed}}$. Dado que la información mutua evalúa solo dependencias estadísticas sin distinguir si una región es clara u oscura, en ocasiones invierte el brillo natural de la escena, oscureciendo zonas iluminadas o viceversa. Este término penaliza dichas discrepancias para asegurar que la distribución de luces y sombras respete la de la imagen de contenido.
-    \item $w_i \in [0, 0.1]$ es un factor de ponderación temporal creciente a lo largo de las iteraciones $i$ que permite que en las primeras épocas domine $\mathcal{L}_{\text{MI}}$ para desplazar libremente los píxeles hacia la estructura de $C$, introduciendo de forma progresiva las restricciones perceptuales ($\mathcal{L}_{\text{LPIPS}}$ y $\mathcal{L}_{\text{Estilo}}$).
+    \item $\mathcal{L}_{\text{Lum}}$ mide la diferencia media absoluta ($L_1$) entre los mapas de luminancia ($Y = 0.299R + 0.587G + 0.114B$) \cite{itur1995bt601} de $C$ y $S_{\text{deformed}}$. Dado que la información mutua evalúa solo dependencias estadísticas sin distinguir si una región es clara u oscura, en ocasiones invierte el brillo natural de la escena, oscureciendo zonas iluminadas o viceversa. Este término penaliza dichas discrepancias para asegurar que la distribución de luces y sombras respete la de la imagen de contenido.
+    \item $w_i \in [0, 0.1]$ es un factor de ponderación temporal creciente a lo largo de las iteraciones $i$ que permite que en las primeras épocas domine $\mathcal{L}_{\text{MI}}$ para desplazar libremente los píxeles hacia la estructura de $C$, introduciendo de forma progresiva las restricciones perceptuales ($\mathcal{L}_{\text{LPIPS}}$ y $\mathcal{L}_{\text{Estilo}}$) \cite{zamzam2025pixelshuffler}.
 \end{itemize}
 
 \subsection{Optimización iterativa}
 
-\noindent A diferencia de otros paradigmas basados en redes generativas, la red $\mathcal{N}_\theta$ no requiere ningún preentrenamiento previo sobre grandes bases de datos, sino que sus parámetros $\theta$ se optimizan directamente para el par de imágenes $(C, S)$ dado.
+\noindent A diferencia de otros paradigmas basados en redes generativas, la red $\mathcal{N}_\theta$ no requiere ningún preentrenamiento previo sobre grandes bases de datos, sino que sus parámetros $\theta$ se optimizan directamente para el par de imágenes $(C, S)$ dado \cite{zamzam2025pixelshuffler}.
 
 \vspace{0.3cm}
 
-\noindent Para minimizar la función de coste global $\mathcal{L}_{\text{total}}$ se emplea un esquema iterativo basado en descenso de gradiente. En cada iteración $k$, los parámetros $\theta$ de la red se actualizan avanzando en la dirección opuesta al gradiente de la pérdida:
+\noindent Para minimizar la función de coste global $\mathcal{L}_{\text{total}}$ se emplea un esquema iterativo basado en descenso de gradiente. En cada iteración $k$, los parámetros $\theta$ de la red se actualizan avanzando en la dirección opuesta al gradiente de la pérdida \cite{zamzam2025pixelshuffler}:
 
 \[
 \theta^{k + 1} = \theta^k - \eta \nabla_{\theta} \mathcal{L}_{\text{total}}
 \]
 
-\noindent donde $\eta$ representa la tasa de aprendizaje (\textit{learning rate}), que determina la longitud de paso en cada actualización. Tras completar el número de iteraciones fijado, la red converge hacia el campo óptimo $D^*$ que produce la imagen final $S_{\text{deformed}}$ con la estructura de $C$ y los píxeles reordenados de $S$.
+\noindent donde $\eta$ representa la tasa de aprendizaje (\textit{learning rate}), que determina la longitud de paso en cada actualización. Tras completar el número de iteraciones fijado, la red converge hacia el campo óptimo $D^*$ que produce la imagen final $S_{\text{deformed}}$ con la estructura de $C$ y los píxeles reordenados de $S$ \cite{zamzam2025pixelshuffler}.
 
 \section{Implementación}
 
 \subsection{Entorno tecnológico}
 
-\noindent El desarrollo práctico de este proyecto parte de una bifurcación del repositorio oficial publicado por el autor del artículo original (\href{https://github.com/OmarSZamzam/PixelShuffler}{OmarSZamzam/PixelShuffler}), alojada en nuestro repositorio de GitHub (\href{https://github.com/ivrugue/PixelShuffler}{ivrugue/PixelShuffler}). Sobre esta base de código en Python, se ha estructurado tanto la refactorización modular de los archivos fuente como el entorno de ejecución interactivo en un notebook de Jupyter diseñado para ser ejecutado en Google Colab.
+\noindent El desarrollo práctico de este proyecto parte de una bifurcación del repositorio oficial publicado por el autor del artículo original (\href{https://github.com/OmarSZamzam/PixelShuffler}{OmarSZamzam/PixelShuffler} \cite{zamzam2025repo}), alojada en nuestro repositorio de GitHub (\href{https://github.com/ivrugue/PixelShuffler}{ivrugue/PixelShuffler}). Sobre esta base de código en Python, se ha estructurado tanto la refactorización modular de los archivos fuente como el entorno de ejecución interactivo en un notebook de Jupyter diseñado para ser ejecutado en Google Colab.
 
 \vspace{0.3cm}
 
@@ -200,22 +200,22 @@ Sean $X$ e $Y$ dos variables aleatorias. Entonces:
 \noindent El ecosistema de bibliotecas empleadas y su función específica dentro de la arquitectura del sistema se detallan a continuación:
 
 \begin{itemize}
-    \item \textbf{PyTorch y Torchvision (\texttt{torch}, \texttt{torchvision}):} Constituyen el núcleo computacional del proyecto. Gestionan los tensores multidimensionales en memoria gráfica, construyen el grafo dinámico de diferenciación automática (\textit{autograd}) para la retropropagación, implementan el optimizador adaptativo Adam y proveen la red convolucional VGG-19 preentrenada sobre ImageNet empleada como extractor fijo de características de estilo.
+    \item \textbf{PyTorch y Torchvision (\texttt{torch}, \texttt{torchvision}):} Constituyen el núcleo computacional del proyecto \cite{paszke2019pytorch}. Gestionan los tensores multidimensionales en memoria gráfica, construyen el grafo dinámico de diferenciación automática (\textit{autograd}) para la retropropagación, implementan el optimizador adaptativo Adam \cite{kingma2015adam} y proveen la red convolucional VGG-19 \cite{simonyan2015very} preentrenada sobre ImageNet \cite{deng2009imagenet} empleada como extractor fijo de características de estilo.
     
-    \item \textbf{MONAI (\texttt{monai}):} Biblioteca especializada en visión artificial y registro deformable de imágenes sobre PyTorch. De ella se extraen los componentes estructurales del método: la arquitectura neuronal \texttt{UNet} (configurada en 2D con $6$ canales de entrada y $2$ de salida), el integrador numérico de campos de velocidad a desplazamiento (\texttt{DVF2DDF}), la capa de remuestreo espacial diferenciable (\texttt{Warp}) y la función objetivo de Información Mutua Global (\texttt{GlobalMutualInformationLoss}).
+    \item \textbf{MONAI (\texttt{monai}):} Biblioteca especializada en visión artificial y registro deformable de imágenes sobre PyTorch \cite{cardoso2022monai}. De ella se extraen los componentes estructurales del método: la arquitectura neuronal \texttt{UNet} \cite{ronneberger2015unet} (configurada en 2D con $6$ canales de entrada y $2$ de salida), el integrador numérico de campos de velocidad a desplazamiento (\texttt{DVF2DDF}), la capa de remuestreo espacial diferenciable (\texttt{Warp}) y la función objetivo de Información Mutua Global (\texttt{GlobalMutualInformationLoss}).
     
     \item \textbf{Torchinfo (\texttt{torchinfo}):} Utilizada para auditar la estructura interna de la red \texttt{UNet}, verificar las dimensiones tensoriales intermedias y cuantificar su número de parámetros entrenables y huella de memoria gráfica.
 
-    \item \textbf{LPIPS (\texttt{lpips}):} Implementa la métrica y función de coste de similitud perceptual (\textit{Learned Perceptual Image Patch Similarity}) apoyándose en una red AlexNet preentrenada y congelada, utilizada tanto para restringir la distorsión geométrica durante la optimización como para evaluar cuantitativamente la preservación estructural final.
+    \item \textbf{LPIPS (\texttt{lpips}):} Implementa la métrica y función de coste de similitud perceptual (\textit{Learned Perceptual Image Patch Similarity}) \cite{zhang2018unreasonable} apoyándose en una red AlexNet \cite{krizhevsky2012imagenet} preentrenada y congelada, utilizada tanto para restringir la distorsión geométrica durante la optimización como para evaluar cuantitativamente la preservación estructural final.
     
     \item \textbf{Pillow, NumPy y Matplotlib (\texttt{PIL}, \texttt{numpy}, \texttt{matplotlib}):} Encargadas de la decodificación y preprocesamiento inicial de archivos de imagen (redimensionado, recorte centrado y conversión de espacios), la manipulación matricial de los campos vectoriales en CPU y la generación de las gráficas de convergencia, mapas de calor y campos de flechas (\textit{quiver plots}).
 
-    \item \textbf{Datasets y Pandas (\texttt{datasets}, \texttt{pandas}):} Incorporadas en nuestra extensión experimental para automatizar la descarga y filtrado en \textit{streaming} de subconjuntos de validación de COCO y WikiArt, y registrar de forma estructurada en formato CSV las métricas de cada ejecución del \textit{benchmark}.
+    \item \textbf{Datasets y Pandas (\texttt{datasets}, \texttt{pandas}):} Incorporadas en nuestra extensión experimental para automatizar la descarga y filtrado en \textit{streaming} de subconjuntos de validación de COCO \cite{lin2014microsoft} y WikiArt \cite{saleh2015large}, y registrar de forma estructurada en formato CSV las métricas de cada ejecución del \textit{benchmark}.
 \end{itemize}
 
 \subsection{Arquitectura y modularización del proyecto}
 
-\noindent El repositorio oficial de \textit{PixelShuffler} presenta una estructura compacta orientada a su ejecución directa desde la línea de comandos, donde la mayor parte de la lógica algorítmica queda encapsulada dentro de una única función monolítica (\texttt{style\_transfer.py}). La arquitectura heredada del repositorio original se organiza en tres componentes principales:
+\noindent El repositorio oficial de \textit{PixelShuffler} \cite{zamzam2025repo} presenta una estructura compacta orientada a su ejecución directa desde la línea de comandos, donde la mayor parte de la lógica algorítmica queda encapsulada dentro de una única función monolítica (\texttt{style\_transfer.py}). La arquitectura heredada del repositorio original se organiza en tres componentes principales:
 
 \begin{itemize}
     \item \textbf{Script principal (\texttt{style\_transfer.py}):} Gestiona el análisis de argumentos por consola (\texttt{argparse}), la instanciación de la red \texttt{UNet} y del optimizador Adam, el bucle iterativo de entrenamiento y el guardado en disco de la imagen resultante.
@@ -244,7 +244,7 @@ Sean $X$ e $Y$ dos variables aleatorias. Entonces:
 \begin{enumerate}
     \item \textbf{Preprocesamiento y preparación de tensores:} Las imágenes de contenido $C$ y estilo $S$ se escalan y recortan simétricamente al centro a una resolución cuadrada común ($H \times W$), normalizando sus intensidades al intervalo $[0, 1]$ y disponiéndolas en tensores con formato convolucional $[1, 3, H, W]$ en memoria gráfica.
     
-    \item \textbf{Instanciación del modelo y del planificador:} Se inicializan desde cero los pesos $\theta$ de la red \texttt{UNet} ($\approx 1,25\text{ millones}$ de parámetros), la capa \texttt{Warp}, el optimizador adaptativo Adam y la rampa lineal $w_i \in [0, 0,1]$ que regulará progresivamente el peso de las pérdidas perceptuales durante el entrenamiento.
+    \item \textbf{Instanciación del modelo y del planificador:} Se inicializan desde cero los pesos $\theta$ de la red \texttt{UNet} ($\approx 1,25\text{ millones}$ de parámetros), la capa \texttt{Warp}, el optimizador adaptativo Adam \cite{kingma2015adam} y la rampa lineal $w_i \in [0, 0,1]$ que regulará progresivamente el peso de las pérdidas perceptuales durante el entrenamiento.
     
     \item \textbf{Cálculo del campo de desplazamiento:} En cada iteración, tras reiniciar los gradientes acumulados, la imagen móvil actual y la imagen de contenido fija se apilan por canales formando un único tensor de entrada de dimensión $[1, 6, H, W]$. La red \texttt{UNet} procesa este tensor y estima un campo inicial de movimiento (\texttt{dvf}), que la función \texttt{dvf\_to\_ddf} transforma en el mapa final de desplazamientos $D(x, y)$ (\texttt{ddf}) de $2$ canales $(\Delta x, \Delta y)$ para asegurar una deformación suave y sin cruces caóticos entre píxeles.
     
@@ -262,11 +262,11 @@ Sean $X$ e $Y$ dos variables aleatorias. Entonces:
     
     \item \textbf{Integración y optimización de módulos desacoplados:} Se han añadido al flujo principal dos formulaciones matemáticas presentes en los archivos auxiliares del repositorio pero sin uso en su ejecución original:
     \begin{itemize}
-        \item \textbf{Matrices de Gram:} Se ha incluido la función de pérdida de estilo por correlación espacial (\texttt{gram\_style\_loss} de \texttt{utils.py}) como alternativa a los estadísticos de activación por defecto. Además, al detectar que la implementación original reinstanciaba la red VGG-19 en cada iteración, lo que penalizaba el tiempo de cómputo, se ha reprogramado en \texttt{gram\_style\_loss\_rapida} precargando y congelando el extractor una única vez en memoria gráfica.
+        \item \textbf{Matrices de Gram:} Se ha incluido la función de pérdida de estilo por correlación espacial (\texttt{gram\_style\_loss} de \texttt{utils.py}) como alternativa a los estadísticos de activación por defecto \cite{gatys2015neural}. Además, al detectar que la implementación original reinstanciaba la red VGG-19 en cada iteración, lo que penalizaba el tiempo de cómputo, se ha reprogramado en \texttt{gram\_style\_loss\_rapida} precargando y congelando el extractor una única vez en memoria gráfica.
         \item \textbf{Regularización espacial del campo vectorial:} Se han conectado las funciones \texttt{GradEnergyLoss} (derivada de primer orden) y \texttt{BendingEnergyLoss} (curvatura de segundo orden) del módulo \texttt{networks/deform\_losses.py} para permitir suavizar el campo de desplazamientos $D(x, y)$ y prevenir estiramientos o pliegues irregulares entre píxeles vecinos.
     \end{itemize}
     
-    \item \textbf{Pérdida de consistencia de luminancia ($\mathcal{L}_{\text{Lum}}$):} Probando el código original, detectamos que en ocasiones se asignaban tonos oscuros de la imagen de estilo a regiones luminosas del contenido (y viceversa), dando resultados poco naturales a pesar de mantener la estructura original, ya que la Información Mutua evalúa únicamente dependencias estadísticas y es invariante frente a inversiones de contraste. Por ello se ha diseñado e incorporado una función de pérdida propia (\texttt{luminance\_loss}) que calcula la diferencia media absoluta ($L_1$) sobre el canal de luminancia perceptual entre $S_{\text{deformed}}$ y $C$ para preservar la distribución natural de luces y sombras.
+    \item \textbf{Pérdida de consistencia de luminancia ($\mathcal{L}_{\text{Lum}}$):} Probando el código original, detectamos que en ocasiones se asignaban tonos oscuros de la imagen de estilo a regiones luminosas del contenido (y viceversa), dando resultados poco naturales a pesar de mantener la estructura original, ya que la Información Mutua evalúa únicamente dependencias estadísticas y es invariante frente a inversiones de contraste. Por ello se ha diseñado e incorporado una función de pérdida propia (\texttt{luminance\_loss}) que calcula la diferencia media absoluta ($L_1$) sobre el canal de luminancia perceptual \cite{itur1995bt601} entre $S_{\text{deformed}}$ y $C$ para preservar la distribución natural de luces y sombras.
     
     \item \textbf{Seguimiento de la evolución y visualización del movimiento:} A diferencia del script original, que solo devuelve la imagen final, hemos añadido herramientas para ver qué ocurre durante el entrenamiento:
     \begin{itemize}
@@ -358,22 +358,13 @@ Fecha de la actividad
 19/11/2026 & 0,75 & Iván & Seguimiento 2: Redacción del documento\\\hline
 19/11/2026 & 0,5 & Iván & Seguimiento 2: Sesión en clase\\\hline
 23/11/2026 & 0,5 & Iván & Memoria: Redacción de la introducción\\\hline
+23/11/2026 & 0,5 & Iván & Memoria: Búsqueda e inserción de referencias\\\hline
 & & & \\\hline
 & & & \\\hline
 \end{longtable}
 
 
-\begin{thebibliography}{10}
-
-
-\bibitem{clave:libro}
-U. N. Experto, \emph{Un libro que escribí},
-Editorial, 1996.
-
-\bibitem{clave:revista}
-Y. O. Mismo,
-``Título del artículo'',
-\emph{Revista Publicación Periódica}, Vol. 17, pp. 1-100, 1997.
-\end{thebibliography}
+\bibliographystyle{plain}
+\bibliography{referencias}
 
 \end{document}

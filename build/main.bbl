@@ -1,0 +1,98 @@
+\begin{thebibliography}{10}
+
+\bibitem{cardoso2022monai}
+M.~Jorge Cardoso et~al.
+\newblock Monai: An open-source framework for deep learning in healthcare.
+\newblock {\em arXiv preprint arXiv:2211.02701}, 2022.
+
+\bibitem{chung2024style}
+Jiwoo Chung, Sangeek Hyun, and Jae-Pil Heo.
+\newblock Style injection in diffusion: A training-free approach for adapting large-scale diffusion models for style transfer.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, pages 8795--8805, 2024.
+
+\bibitem{deng2009imagenet}
+Jia Deng, Wei Dong, Richard Socher, Li-Jia Li, Kai Li, and Li~Fei-Fei.
+\newblock Imagenet: A large-scale hierarchical image database.
+\newblock In {\em 2009 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, pages 248--255, 2009.
+
+\bibitem{gatys2015neural}
+Leon~A. Gatys, Alexander~S. Ecker, and Matthias Bethge.
+\newblock A neural algorithm of artistic style.
+\newblock {\em arXiv preprint arXiv:1508.06576}, 2015.
+
+\bibitem{huang2017arbitrary}
+Xun Huang and Serge Belongie.
+\newblock Arbitrary style transfer in real-time with adaptive instance normalization.
+\newblock In {\em Proceedings of the IEEE International Conference on Computer Vision (ICCV)}, pages 1501--1510, 2017.
+
+\bibitem{itur1995bt601}
+{International Telecommunication Union}.
+\newblock Studio encoding parameters of digital television for standard 4:3 and wide-screen 16:9 aspect ratios.
+\newblock Technical Report Recommendation ITU-R BT.601, ITU-R, 1995.
+
+\bibitem{kingma2015adam}
+Diederik~P. Kingma and Jimmy Ba.
+\newblock Adam: A method for stochastic optimization.
+\newblock In {\em International Conference on Learning Representations (ICLR)}, 2015.
+
+\bibitem{krizhevsky2012imagenet}
+Alex Krizhevsky, Ilya Sutskever, and Geoffrey~E. Hinton.
+\newblock Imagenet classification with deep convolutional neural networks.
+\newblock In {\em Advances in Neural Information Processing Systems (NeurIPS)}, volume~25, pages 1097--1105, 2012.
+
+\bibitem{lin2014microsoft}
+Tsung-Yi Lin, Michael Maire, Serge Belongie, James Hays, Pietro Perona, Deva Ramanan, Piotr Doll{\'a}r, and C.~Lawrence Zitnick.
+\newblock Microsoft coco: Common objects in context.
+\newblock In {\em European Conference on Computer Vision (ECCV)}, pages 740--755. Springer, 2014.
+
+\bibitem{paszke2019pytorch}
+Adam Paszke et~al.
+\newblock Pytorch: An imperative style, high-performance deep learning library.
+\newblock In {\em Advances in Neural Information Processing Systems (NeurIPS)}, volume~32, pages 8024--8035, 2019.
+
+\bibitem{ronneberger2015unet}
+Olaf Ronneberger, Philipp Fischer, and Thomas Brox.
+\newblock U-net: Convolutional networks for biomedical image segmentation.
+\newblock In {\em Medical Image Computing and Computer-Assisted Intervention (MICCAI)}, pages 234--241. Springer, 2015.
+
+\bibitem{saleh2015large}
+Babak Saleh and Ahmed Elgammal.
+\newblock Large-scale classification of fine-art paintings: Learning the right metric on the right feature.
+\newblock {\em arXiv preprint arXiv:1505.00855}, 2015.
+
+\bibitem{shannon1948mathematical}
+Claude~E. Shannon.
+\newblock A mathematical theory of communication.
+\newblock {\em The Bell System Technical Journal}, 27(3):379--423, 1948.
+
+\bibitem{simonyan2015very}
+Karen Simonyan and Andrew Zisserman.
+\newblock Very deep convolutional networks for large-scale image recognition.
+\newblock In {\em International Conference on Learning Representations (ICLR)}, 2015.
+
+\bibitem{viola1997alignment}
+Paul Viola and William~M. Wells~III.
+\newblock Alignment by maximization of mutual information.
+\newblock {\em International Journal of Computer Vision}, 24(2):137--154, 1997.
+
+\bibitem{zamzam2025pixelshuffler}
+Omar Zamzam.
+\newblock Pixelshuffler: A simple image translation through pixel rearrangement.
+\newblock In {\em 2025 IEEE International Conference on Image Processing (ICIP)}, pages 1360--1365. IEEE, 2025.
+
+\bibitem{zamzam2025repo}
+Omar Zamzam.
+\newblock Pixelshuffler: A simple image translation through pixel rearrangement (official repository).
+\newblock \url{https://github.com/OmarSZamzam/PixelShuffler}, 2025.
+
+\bibitem{zhang2018unreasonable}
+Richard Zhang, Phillip Isola, Alexei~A. Efros, Eli Shechtman, and Oliver Wang.
+\newblock The unreasonable effectiveness of deep features as a perceptual metric.
+\newblock In {\em Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, pages 586--595, 2018.
+
+\bibitem{zhu2017unpaired}
+Jun-Yan Zhu, Taesung Park, Phillip Isola, and Alexei~A. Efros.
+\newblock Unpaired image-to-image translation using cycle-consistent adversarial networks.
+\newblock In {\em Proceedings of the IEEE International Conference on Computer Vision (ICCV)}, pages 2223--2232, 2017.
+
+\end{thebibliography}

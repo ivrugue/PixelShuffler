@@ -1,9 +1,18 @@
 # Fdb version 4
-["pdflatex"] 1795431567.67289 "c:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/main.tex" "C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/build/main.pdf" "main" 1795431570.98521 0
-  "C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/build/main.aux" 1795431570.0293 3286 1a955b6f3d592dd60c0fed860fb2c240 "pdflatex"
-  "build/main.aux" 1795431570.0293 3286 1a955b6f3d592dd60c0fed860fb2c240 "pdflatex"
-  "build/main.out" 1795431570.0333 3923 321986ce2645e7f330799a0ee1cc6d38 "pdflatex"
-  "c:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/main.tex" 1795431566.98588 31942 62e3fc10f34c091304ae0d3683ee8e11 ""
+["bibtex build/main"] 1795432963.50869 "build/main.aux" "build/main.bbl" "build/main" 1795433218.29237 0
+  "./referencias.bib" 1795432961.93302 6025 f9d216870a623e97d2d510db2ecef1cc ""
+  "build/main.aux" 1795433216.83441 5427 302e8af4ba9f73e77e1a8c152dec4211 "pdflatex"
+  "c:/texlive/2026/texmf-dist/bibtex/bst/base/plain.bst" 1794307852.5145 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
+  (generated)
+  "build/main.bbl"
+  "build/main.blg"
+  (rewritten before read)
+["pdflatex"] 1795433214.7534 "c:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/main.tex" "C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/build/main.pdf" "main" 1795433218.29821 0
+  "C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/build/main.aux" 1795433216.83441 5427 302e8af4ba9f73e77e1a8c152dec4211 "pdflatex"
+  "build/main.aux" 1795433216.83441 5427 302e8af4ba9f73e77e1a8c152dec4211 "pdflatex"
+  "build/main.bbl" 1795432963.96952 4750 a24a2b5720e7f802519f0eb170c8e5b4 "bibtex build/main"
+  "build/main.out" 1795433216.84143 3923 321986ce2645e7f330799a0ee1cc6d38 "pdflatex"
+  "c:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/main.tex" 1795433211.58234 33130 c4bec39b7946f257ff7e4c4f21c39fed ""
   "c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1794308033.58779 2375 baa924870cfb487815765f9094cf3728 ""
   "c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1794308033.59082 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1794308033.59145 2405 5dcf2c1b967ee25cc46c58cd52244aed ""

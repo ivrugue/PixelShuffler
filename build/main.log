@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.11.10)  23 NOV 2026 11:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.11.10)  23 NOV 2026 12:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -358,10 +358,10 @@ File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 File: l3backend-pdftex.def 2026-09-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count322
 ) (C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/build/main.aux
-LaTeX Info: Redefining \. on input line 11.
-LaTeX Info: Redefining \% on input line 11.
+LaTeX Info: Redefining \. on input line 23.
+LaTeX Info: Redefining \% on input line 23.
 Package babel Info: 'spanish' activates 'spanish' shorthands.
-(babel)             Reported on input line 11.
+(babel)             Reported on input line 23.
 )
 \openout1 = `main.aux'.
 
@@ -517,13 +517,13 @@ Overfull \hbox (27.25304pt too wide) in alignment at lines 320--323
  []
 
 
-Overfull \hbox (27.25304pt too wide) in alignment at lines 323--363
+Overfull \hbox (27.25304pt too wide) in alignment at lines 323--364
  [] [] [] [] 
  []
 
-[7{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}] [8] [9] (C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/build/main.aux
-LaTeX Info: Redefining \. on input line 11.
-LaTeX Info: Redefining \% on input line 11.
+[7{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}] [8] (C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/build/main.bbl [9]) [10] (C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/build/main.aux
+LaTeX Info: Redefining \. on input line 23.
+LaTeX Info: Redefining \% on input line 23.
 )
  ***********
 LaTeX2e <2026-11-01>
@@ -533,18 +533,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 321986CE2645E7F330799A0EE1CC6D38;3923.
  ) 
 Here is how much of TeX's memory you used:
- 12688 strings out of 468448
- 201184 string characters out of 5442048
- 677639 words of memory out of 5000000
- 41699 multiletter control sequences out of 15000+600000
+ 12741 strings out of 468448
+ 202319 string characters out of 5442048
+ 678325 words of memory out of 5000000
+ 41731 multiletter control sequences out of 15000+600000
  703068 words of font info for 79 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 74i,11n,83p,895b,605s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 74i,11n,83p,981b,608s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx9.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi5.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/build/main.pdf" (9 pages, 405474 bytes).
+Output written on "C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/build/main.pdf" (10 pages, 417678 bytes).
 PDF statistics:
- 273 PDF objects out of 1000 (max. 8388607)
- 217 compressed objects within 3 object streams
- 45 named destinations out of 1000 (max. 500000)
+ 348 PDF objects out of 1000 (max. 8388607)
+ 291 compressed objects within 3 object streams
+ 63 named destinations out of 1000 (max. 500000)
  169 words of extra memory for PDF output out of 10000 (max. 10000000)
 
