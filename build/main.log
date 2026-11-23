@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.11.10)  19 NOV 2026 11:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.11.10)  23 NOV 2026 11:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -110,10 +110,6 @@ Package: longtable 2026-10-05 v4.28 Multi-page Table package (DPC)
 \c@LT@tables=\count290
 \c@LT@chunks=\count291
 \LT@p@ftn=\toks20
-) (c:/texlive/2026/texmf-dist/tex/latex/hyphenat/hyphenat.sty
-Package: hyphenat 2009/09/02 v2.3c hyphenation utilities
-\langwohyphens=\language24
-LaTeX Info: Redefining \_ on input line 43.
 ) (c:/texlive/2026/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
  (c:/texlive/2026/texmf-dist/tex/latex/graphics-cfg/color.cfg
@@ -355,7 +351,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 )
 \c@definicion=\count320
 \c@proposicion=\count321
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 28.
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 26.
  (c:/texlive/2026/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) (c:/texlive/2026/texmf-dist/tex/latex/l3kernel/l3backend-pdftex.def
@@ -369,26 +365,26 @@ Package babel Info: 'spanish' activates 'spanish' shorthands.
 )
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Info: Redefining \. on input line 28.
-LaTeX Info: Redefining \% on input line 28.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Info: Redefining \. on input line 26.
+LaTeX Info: Redefining \% on input line 26.
  (c:/texlive/2026/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count323
@@ -442,180 +438,90 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring ON on input line 28.
+Package hyperref Info: Link coloring ON on input line 26.
 (C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4Âº CARRERA/PID/PixelShuffler/build/main.out) (C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4Âº CARRERA/PID/PixelShuffler/build/main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
 Package babel Info: Main language set to 'spanish'.
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 51.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 61.
  (c:/texlive/2026/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 51.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 61.
  (c:/texlive/2026/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 51.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 61.
  (c:/texlive/2026/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 51.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 61.
  (c:/texlive/2026/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 51.
+(Font)              <10> on input line 61.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 51.
+(Font)              <7> on input line 61.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 51.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 51.
+(Font)              <5> on input line 61.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 61.
  (c:/texlive/2026/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 51.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 61.
  (c:/texlive/2026/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-Overfull \hbox (3.8892pt too wide) in paragraph at lines 55--56
-\T1/lmr/m/n/10 Para for-ma-li-zar ma-te-má-ti-ca-men-te el es-pa-cio de tra-ba-jo, de-no-ta-re-mos me-dian-te $\U/msb/m/n/10 R[]$ \T1/lmr/m/n/10 al con-jun-to
- []
+) [1
 
-[1
-
-{c:/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}]
-Overfull \hbox (12.56418pt too wide) in paragraph at lines 87--88
-[]\T1/lmr/m/it/10 Llamaremos cam-po de de-for-ma-ción $\OML/lmm/m/it/10 D$ \T1/lmr/m/it/10 al cam-po vec-to-rial de des-pla-za-mien-tos aso-cia-do
- []
-
-
-Overfull \hbox (35.10951pt too wide) in paragraph at lines 95--96
-\T1/lmr/m/it/10 donde $\OT1/lmr/m/n/10 ^^A\OML/lmm/m/it/10 x$ \T1/lmr/m/it/10 y $\OT1/lmr/m/n/10 ^^A\OML/lmm/m/it/10 y$ \T1/lmr/m/it/10 re-pre-sen-tan los des-pla-za-mien-tos ho-ri-zon-ta-les y ver-ti-ca-les en el pun-to $\OT1/lmr/m/n/10 (\OML/lmm/m/it/10 x; y\OT1/lmr/m/n/10 )$\T1/lmr/m/it/10 , res-pec-ti-va-men-te,
- []
-
-[2{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}]
-Overfull \hbox (0.48935pt too wide) in paragraph at lines 151--152
-\T1/lmr/m/n/10 Adicionalmente, pa-ra con-tro-lar el com-pro-mi-so en-tre fi-de-li-dad geo-mé-tri-ca, ri-que-za tex-tu-ral, sua-vi-dad
- []
-
-
-Overfull \hbox (7.23253pt too wide) in paragraph at lines 157--158
-[]$\OMS/lmsy/m/n/10 L[]$ \T1/lmr/m/n/10 mi-de la dis-tan-cia per-cep-tual es-truc-tu-ral en-tre $\OML/lmm/m/it/10 C$ \T1/lmr/m/n/10 y $\OML/lmm/m/it/10 S[]$ \T1/lmr/m/n/10 com-pa-ran-do las ac-ti-va-cio-nes
- []
-
-[3]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 186.
+{c:/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}] [2{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}] [3{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 196.
  (c:/texlive/2026/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 193.
-
-Overfull \hbox (1.44775pt too wide) in paragraph at lines 199--200
-\T1/lmr/m/it/10 Per-cep-tual Ima-ge Patch Si-mi-la-rity\T1/lmr/m/n/10 ) apo-yán-do-se en una red Alex-Net pre-en-tre-na-da y con-ge-la-da,
- []
-
-
-Overfull \hbox (9.48781pt too wide) in paragraph at lines 201--202
-\T1/lmr/m/n/10 y pre-pro-ce-sa-mien-to ini-cial de ar-chi-vos de ima-gen (re-di-men-sio-na-do, re-cor-te cen-tra-do y con-ver-sión
- []
-
-
-Overfull \hbox (16.15945pt too wide) in paragraph at lines 208--209
-\T1/lmr/m/n/10 den-tro de una úni-ca fun-ción mo-no-lí-ti-ca (\T1/lmtt/m/n/10 style_-transfer.py\T1/lmr/m/n/10 ). La ar-qui-tec-tu-ra he-re-da-da del re-po-si-to-rio
- []
-
-[4]
-Overfull \hbox (2.94467pt too wide) in paragraph at lines 213--214
-[]\T1/lmr/bx/n/10 Módulo de uti-li-da-des y pér-di-das (\T1/lmtt/b/n/10 utils.py\T1/lmr/bx/n/10 ): \T1/lmr/m/n/10 Cen-tra-li-za el pre-pro-ce-sa-mien-to y con-ver-sión
- []
-
-
-Overfull \hbox (2.13734pt too wide) in paragraph at lines 215--216
-[]\T1/lmr/bx/n/10 Módulo de re-des y re-gu-la-ri-za-ción (\T1/lmtt/b/n/10 networks/\T1/lmr/bx/n/10 ): \T1/lmr/m/n/10 Con-tie-ne las de-fi-ni-cio-nes de ar-qui-tec-tu-ras
- []
-
-
-Overfull \hbox (24.40202pt too wide) in paragraph at lines 215--216
-\T1/lmr/m/n/10 or-den so-bre cam-pos de de-for-ma-ción (\T1/lmtt/m/n/10 deform_-losses.py\T1/lmr/m/n/10 : \T1/lmtt/m/n/10 GradEnergyLoss \T1/lmr/m/n/10 y \T1/lmtt/m/n/10 BendingEnergyLoss\T1/lmr/m/n/10 ). 
- []
-
-
-Overfull \hbox (19.20976pt too wide) in paragraph at lines 220--221
-\T1/lmr/m/n/10 Para cum-plir con el ob-je-ti-vo di-dác-ti-co y ex-pe-ri-men-tal de es-te tra-ba-jo, se ha con-ser-va-do la com-pa-ti-bi-li-dad
- []
-
-
-Overfull \hbox (11.0688pt too wide) in paragraph at lines 223--224
-[]\T1/lmr/bx/n/10 Funciones cons-truc-to-ras: \T1/lmr/m/n/10 Se han ais-la-do en fun-cio-nes in-de-pen-dien-tes la car-ga y nor-ma-li-za-ción
- []
-
-
-Overfull \hbox (3.82043pt too wide) in paragraph at lines 223--224
-\T1/lmr/m/n/10 des-de ce-ro de la red neu-ro-nal (\T1/lmtt/m/n/10 crear_-unet\T1/lmr/m/n/10 ), la ca-pa de de-for-ma-ción fí-si-ca (\T1/lmtt/m/n/10 crear_-warp_-layer\T1/lmr/m/n/10 )
- []
-
-
-Overfull \hbox (19.88527pt too wide) in paragraph at lines 227--228
-[]\T1/lmr/bx/n/10 Bucle prin-ci-pal re-uti-li-za-ble (\T1/lmtt/b/n/10 style_-transfer\T1/lmr/bx/n/10 ): \T1/lmr/m/n/10 En-cap-su-la el pro-ce-so ite-ra-ti-vo de op-ti-mi-za-ción
- []
-
-
-Overfull \hbox (26.4613pt too wide) in paragraph at lines 227--228
-\T1/lmr/m/n/10 co-mo fun-cio-nes ex-ter-nas de mo-ni-to-ri-za-ción (\T1/lmr/m/it/10 call-backs\T1/lmr/m/n/10 ), evi-tan-do du-pli-car có-di-go en-tre ex-pe-ri-men-tos. 
- []
-
-
-Overfull \hbox (0.41002pt too wide) in paragraph at lines 243--244
-\T1/lmr/m/n/10 com-bi-nan-do los re-sul-ta-dos de las fun-cio-nes de cos-te ac-ti-vas pon-de-ra-dos. Me-dian-te pro-pa-ga-ción
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 203.
+ [4]
+Overfull \hbox (24.40202pt too wide) in paragraph at lines 225--226
+\T1/lmr/m/n/10 or-den so-bre cam-pos de de-for-ma-ción (\T1/lmtt/m/n/10 deform_losses.py\T1/lmr/m/n/10 : \T1/lmtt/m/n/10 GradEnergyLoss \T1/lmr/m/n/10 y \T1/lmtt/m/n/10 BendingEnergyLoss\T1/lmr/m/n/10 ). 
  []
 
 [5]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 255.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 265.
  (c:/texlive/2026/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-Overfull \hbox (4.5983pt too wide) in paragraph at lines 255--256
-\T1/lmr/m/n/10 es-pa-cial (\T1/lmtt/m/n/10 gram_-style_-loss \T1/lmr/m/n/10 de \T1/lmtt/m/n/10 utils.py\T1/lmr/m/n/10 ) co-mo al-ter-na-ti-va a los es-ta-dís-ti-cos de ac-ti-va-ción
+) [6]
+Overfull \hbox (0.8471pt too wide) in paragraph at lines 274--275
+\T1/lmr/m/n/10 una fun-ción pa-ra di-bu-jar la cur-va con la evo-lu-ción del error (\T1/lmtt/m/n/10 visualizar_convergencia\T1/lmr/m/n/10 )
  []
 
 
-Overfull \hbox (7.4275pt too wide) in paragraph at lines 256--257
-\T1/lmtt/m/n/10 GradEnergyLoss \T1/lmr/m/n/10 (de-ri-va-da de pri-mer or-den) y \T1/lmtt/m/n/10 BendingEnergyLoss \T1/lmr/m/n/10 (cur-va-tu-ra de se-gun-do
- []
-
-
-Overfull \hbox (0.8471pt too wide) in paragraph at lines 264--265
-\T1/lmr/m/n/10 una fun-ción pa-ra di-bu-jar la cur-va con la evo-lu-ción del error (\T1/lmtt/m/n/10 visualizar_-convergencia\T1/lmr/m/n/10 )
- []
-
-[6{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
-Overfull \hbox (27.25304pt too wide) in alignment at lines 290--298
+Overfull \hbox (27.25304pt too wide) in alignment at lines 300--308
  [] [] [] [] 
  []
 
 
-Overfull \hbox (27.25304pt too wide) in alignment at lines 298--307
+Overfull \hbox (27.25304pt too wide) in alignment at lines 308--317
  [] [] [] [] 
  []
 
 
-Overfull \hbox (27.25304pt too wide) in alignment at lines 307--310
+Overfull \hbox (27.25304pt too wide) in alignment at lines 317--320
  [] [] [] [] 
  []
 
 
-Overfull \hbox (27.25304pt too wide) in alignment at lines 310--313
+Overfull \hbox (27.25304pt too wide) in alignment at lines 320--323
  [] [] [] [] 
  []
 
 
-Overfull \hbox (27.25304pt too wide) in alignment at lines 313--351
+Overfull \hbox (27.25304pt too wide) in alignment at lines 323--363
  [] [] [] [] 
  []
 
-[7] [8] (C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4Âº CARRERA/PID/PixelShuffler/build/main.aux
+[7{c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}] [8] [9] (C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4Âº CARRERA/PID/PixelShuffler/build/main.aux
 LaTeX Info: Redefining \. on input line 11.
 LaTeX Info: Redefining \% on input line 11.
 )
@@ -627,18 +533,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 321986CE2645E7F330799A0EE1CC6D38;3923.
  ) 
 Here is how much of TeX's memory you used:
- 12733 strings out of 468448
- 202004 string characters out of 5442048
- 675453 words of memory out of 5000000
- 41741 multiletter control sequences out of 15000+600000
+ 12688 strings out of 468448
+ 201184 string characters out of 5442048
+ 677639 words of memory out of 5000000
+ 41699 multiletter control sequences out of 15000+600000
  703068 words of font info for 79 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 74i,11n,83p,844b,605s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 74i,11n,83p,895b,605s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx9.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi5.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4Âº CARRERA/PID/PixelShuffler/build/main.pdf" (8 pages, 400533 bytes).
+Output written on "C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4Âº CARRERA/PID/PixelShuffler/build/main.pdf" (9 pages, 405474 bytes).
 PDF statistics:
- 269 PDF objects out of 1000 (max. 8388607)
- 214 compressed objects within 3 object streams
- 44 named destinations out of 1000 (max. 500000)
+ 273 PDF objects out of 1000 (max. 8388607)
+ 217 compressed objects within 3 object streams
+ 45 named destinations out of 1000 (max. 500000)
  169 words of extra memory for PDF output out of 10000 (max. 10000000)
 

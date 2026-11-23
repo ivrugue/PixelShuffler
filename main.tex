@@ -6,7 +6,6 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{longtable}
-\usepackage[none]{hyphenat}
 \usepackage[table]{xcolor}
 
 %% Sets page size and margins
@@ -21,8 +20,7 @@
 \newtheorem{definicion}{Definición}[section]
 \newtheorem{proposicion}{Proposición}[section]
 
-\title{Nuestro maravilloso trabajo para la asignatura de\\
-Procesamiento de Imágenes Digitales}
+\title{PixelShuffler: Transferencia de estilo mediante reordenamiento continuo de píxeles}
 \author{Adrián Gutiérrez Roldán \and José Luis Rabadán Morejón \and Iván Ruiz Guerra}
 
 \begin{document}
@@ -36,13 +34,25 @@ Procesamiento de Imágenes Digitales}
 
 \noindent \textbf{Palabras clave:} 
 %(hasta cinco palabras que clasifiquen el trabajo) 
-PID, instrucciones, trabajo en grupo, procesamiento de imágenes.
+PixelShuffler, transferencia de estilo, traducción imagen a imagen, Información Mutua, deformación continua.
 \end{abstract}
 
 
 \section{Introducción}
 
-...
+\noindent La traducción imagen a imagen es una de las áreas principales dentro de la visión artificial y el procesamiento digital de imágenes. Su objetivo consiste en transformar una imagen de entrada hacia otro dominio visual, conservando la estructura y las formas de la escena original mientras adopta los colores, las texturas o el aspecto del dominio destino. Dentro de este campo destaca la transferencia de estilo artístico, cuyo propósito es combinar el contenido estructural de una fotografía con el estilo visual de una obra de arte.
+
+\vspace{0.3cm}
+
+\noindent Desde los primeros métodos basados en redes neuronales convolucionales (CNNs), la literatura ha evolucionado hacia modelos generativos cada vez más complejos, como las Redes Generativas Antagónicas (GANs), los modelos de difusión y los enfoques guiados por texto. Aunque estas técnicas logran resultados muy vistosos, presentan varias limitaciones prácticas, puesto que requieren arquitecturas pesadas, un alto coste computacional, entrenamientos previos con grandes conjuntos de datos y, al generar nuevos píxeles desde cero, a menudo alteran la geometría original o introducen artefactos sobre los detalles finos del contenido.
+
+\vspace{0.3cm}
+
+\noindent Como alternativa frente a estos métodos, el artículo \textit{``PixelShuffler: A Simple Image Translation Through Pixel Rearrangement''} (Omar Zamzam, IEEE ICIP 2025) propone abordar la transferencia de estilo mediante la reordenación espacial continua de los propios píxeles de la imagen de estilo. En lugar de sintetizar colores nuevos, el método utiliza una red neuronal ligera de arquitectura U-Net que estima un campo vectorial de desplazamientos para deformar la imagen de estilo y adaptarla a las siluetas del contenido. Este proceso se guía maximizando la Información Mutua entre ambas imágenes, lo que permite conservar de forma natural la paleta de colores del estilo y mantener una buena fidelidad estructural sin necesidad de preentrenamiento previo.
+
+\vspace{0.3cm}
+
+\noindent En el marco de la asignatura de Procesamiento de Imágenes Digitales, este trabajo tiene como objetivo analizar, explicar de forma didáctica y ampliar experimentalmente la propuesta de \mbox{\textit{PixelShuffler}}. Sobre esta base, se ha trasladado el flujo original a un entorno interactivo en Jupyter Notebook que permite visualizar la evolución del proceso paso a paso y el comportamiento de los desplazamientos espaciales, al tiempo que se han incorporado mejoras en el código para flexibilizar la combinación de funciones de pérdida, corregir inversiones de brillo y mejorar el tiempo de ejecución. Finalmente, se realiza un estudio experimental con distintos parámetros y conjuntos de imágenes para evaluar tanto las ventajas como las limitaciones de este enfoque.
 
 \section{Planteamiento teórico}
 
@@ -346,6 +356,8 @@ Fecha de la actividad
 18/11/2026 & 1 & Luis & Notebook: Explicación de las funciones de observación y visualización\\\hline
 19/11/2026 & 1,25 & Iván & Memoria: Redacción de la implementación\\\hline
 19/11/2026 & 0,75 & Iván & Seguimiento 2: Redacción del documento\\\hline
+19/11/2026 & 0,5 & Iván & Seguimiento 2: Sesión en clase\\\hline
+23/11/2026 & 0,5 & Iván & Memoria: Redacción de la introducción\\\hline
 & & & \\\hline
 & & & \\\hline
 \end{longtable}
