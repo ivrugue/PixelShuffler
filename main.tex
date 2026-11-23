@@ -7,6 +7,8 @@
 \usepackage{lmodern}
 \usepackage{longtable}
 \usepackage[table]{xcolor}
+\usepackage{tabularx}
+
 
 %% Sets page size and margins
 \usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=2cm]{geometry}
@@ -276,8 +278,86 @@ Sean $X$ e $Y$ dos variables aleatorias. Entonces:
 \end{itemize}
 
 \section{Experimentación}
+\noindent Con el fin de poder generar una comparación en la forma de ejecución en diversos experimentos y comprobar el funcionamiento de los diferentes parámetros con los que trabaja nuestra función \textit{style\_transfer}; hemos creado un apartado de benchmarking conformado por una primera parte que descarga datos desde las bases de datos de COCO y Wikiart y un segundo apartado encargado de la ejecución con varios parámetros. 
 
-...
+\subsection{Datos}
+
+\noindent Las imágenes del benchmark se obtienen y se guardan únicamente en el directorio \texttt{/content/datasets\_benchmark}, separado de las imágenes usadas en las pruebas individuales.
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\textwidth}{|l|X|X|}
+\hline
+\textbf{Rol} & \textbf{Origen} & \textbf{Subconjunto} \\
+\hline
+Contenido & COCO  & \texttt{n\_por\_categoria} imágenes (2 por defecto) en cada dominio: paisajes, arquitectura y sujetos orgánicos, filtradas por etiquetas de objeto \\
+\hline
+Estilo & WikiArt & \texttt{n\_por\_categoria} imágenes en cada corriente: impresionismo, expresionismo y cubismo \\
+\hline
+\end{tabularx}
+\caption{Conjuntos de datos del benchmark.}
+\end{table}
+
+\noindent Las imágenes se convierten a RGB, se descartan las de menos de 64\,px de lado y se guardan como JPEG de calidad 95. El muestreo es reproducible con \texttt{seed=42}.
+
+\subsection{Parámetros de la experimentación}
+
+\noindent Se utilizan 2 imágenes de contenido y 2 de estilo, que forman 4 parejas, a resolución \texttt{size=256}. Las imágenes se eligen equiespaciadas dentro de cada lista, para cubrir distintas categorías. Partiendo de una configuración base ($\eta=3\cdot10^{-3}$, $\alpha=1$, $\beta=10$, $\gamma=0{,}01$, estilo \texttt{adain}, $\delta=0$, $\lambda=0$), se varía un único factor cada vez.
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Factor} & \textbf{Niveles} \\
+\hline
+Base & $\eta=3\cdot10^{-3}$, $\alpha=1$, $\beta=10$, $\gamma=0{,}01$, \texttt{adain}, $\delta=0$, $\lambda=0$ \\
+\hline
+Tasa de aprendizaje (\texttt{lr}) & $10^{-2}$, $5\cdot10^{-4}$ \\
+\hline
+Pérdidas (\texttt{perdidas}) & \texttt{solo\_MI} ($\beta=\gamma=0$) \\
+\hline
+Función de estilo (\texttt{estilo}) & \texttt{gram} \\
+\hline
+Regularización (\texttt{regularizacion}) & \texttt{grad} y \texttt{bending}, ambos con $\delta=0{,}5$ \\
+\hline
+Luminancia (\texttt{luminancia}) & $\lambda=1{,}0$ \\
+\hline
+\end{tabularx}
+\caption{Configuraciones de la Etapa 1. Cada una modifica un solo factor respecto a la base; en los factores con valor base (estilo \texttt{adain}, $\lambda=0$) la base actúa como el otro nivel.}
+\end{table}
+
+Cada configuración se entrena una sola vez por pareja durante 1000 épocas, y la configuración base se comparte entre todos los factores. Esto da 8 configuraciones $\times$ 4 parejas $=$ 32 entrenamientos. Para estudiar la convergencia, cada entrenamiento se evalúa en cuatro cortes (250, 500, 750 y 1000 épocas), tomados de una misma trayectoria de 1000 épocas, de modo que se obtienen 128 filas de resultados. Antes de cada entrenamiento se fija la semilla (\texttt{seed=42}) con \texttt{set\_seed}.
+
+\subsection{Registro de resultados}
+
+Los resultados se guardan en \texttt{resultados\_benchmark.csv}, con una fila por pareja, configuración y corte de épocas. El archivo se reinicia en cada ejecución, salvo que se solicite continuar una ejecución interrumpida (\texttt{reanudar=True}). Las columnas son:
+
+
+\subsection{Métricas de comparación}
+
+Todas las métricas se calculan sobre la imagen deformada y el campo \texttt{ddf} de cada corte de épocas, tomando la imagen de contenido como referencia. Cada nivel de un factor se compara con la configuración base, con la misma pareja y la misma semilla; los cortes de épocas permiten observar la convergencia dentro de una misma ejecución.
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\textwidth}{|l|X|l|}
+\hline
+\textbf{Métrica (columna)} & \textbf{Qué mide y cómo se calcula} & \textbf{Sentido} \\
+\hline
+\texttt{lpips\_final} & Distancia perceptual LPIPS (AlexNet) entre la imagen deformada y la de contenido & Menor es mejor \\
+\hline
+\texttt{mi\_final} & Información mutua global entre ambas imágenes; se calcula como $-\texttt{loss\_fn\_MI}$, porque MONAI devuelve $-\mathrm{MI}$ & Mayor es mejor \\
+\hline
+\texttt{lum\_error\_L1} & Error $L_1$ medio entre las luminancias  & Menor es mejor \\
+\hline
+\texttt{grad\_energy} & Energía de primer orden del \texttt{ddf} (\texttt{GradEnergyLoss}): variación del desplazamiento entre píxeles vecinos & Menor es mejor \\
+\hline
+\texttt{bending\_energy} & Energía de segundo orden del \texttt{ddf} (\texttt{BendingEnergyLoss}): curvatura del campo & Menor es mejor \\
+\hline
+\texttt{loss\_total\_final} & Pérdida total optimizada en esa iteración & Solo comparable con la misma configuración \\
+\hline
+\end{tabularx}
+\caption{Métricas registradas en cada ejecución.}
+\end{table}
 
 \section{Manual de usuario}
 
@@ -359,6 +439,8 @@ Fecha de la actividad
 19/11/2026 & 0,5 & Iván & Seguimiento 2: Sesión en clase\\\hline
 23/11/2026 & 0,5 & Iván & Memoria: Redacción de la introducción\\\hline
 23/11/2026 & 0,5 & Iván & Memoria: Búsqueda e inserción de referencias\\\hline
+23/11/2026 & 2 & Adrián & Memoria: Redacción de parte de experimentación \\\hline
+23/11/2026 & 2 & Adrián & Notebook: Correción de errores en funciones de benchmark y prueba \\\hline
 & & & \\\hline
 & & & \\\hline
 \end{longtable}
