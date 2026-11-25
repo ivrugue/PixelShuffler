@@ -44,6 +44,8 @@ INPUT c:/texlive/2026/texmf-dist/tex/latex/colortbl/colortbl.sty
 INPUT c:/texlive/2026/texmf-dist/tex/latex/tools/array.sty
 INPUT c:/texlive/2026/texmf-dist/tex/latex/tools/array.sty
 INPUT c:/texlive/2026/texmf-dist/tex/latex/graphics/color.sty
+INPUT c:/texlive/2026/texmf-dist/tex/latex/tools/tabularx.sty
+INPUT c:/texlive/2026/texmf-dist/tex/latex/tools/tabularx.sty
 INPUT c:/texlive/2026/texmf-dist/tex/latex/geometry/geometry.sty
 INPUT c:/texlive/2026/texmf-dist/tex/latex/geometry/geometry.sty
 INPUT c:/texlive/2026/texmf-dist/tex/latex/graphics/keyval.sty
@@ -216,6 +218,8 @@ INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ts1-lmr10.tfm
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ec-lmbx7.tfm
 INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ec-lmbx5.tfm
 INPUT c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc
+INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ec-lmtt8.tfm
+INPUT c:/texlive/2026/texmf-dist/fonts/tfm/public/lm/ec-lmtt8.tfm
 INPUT C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/build/main.bbl
 INPUT C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/build/main.bbl
 INPUT C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/build/main.bbl
