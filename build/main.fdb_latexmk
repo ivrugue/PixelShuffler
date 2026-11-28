@@ -1,18 +1,18 @@
 # Fdb version 4
-["bibtex build/main"] 1795627869.85556 "build/main.aux" "build/main.bbl" "build/main" 1795633334.92702 0
+["bibtex build/main"] 1795627869.85556 "build/main.aux" "build/main.bbl" "build/main" 1795720981.29115 0
   "./referencias.bib" 1795432961.93302 6025 f9d216870a623e97d2d510db2ecef1cc ""
-  "build/main.aux" 1795633333.80389 6531 5ddb2a26fc556698108293ae38cb7766 "pdflatex"
+  "build/main.aux" 1795720980.33289 6531 5ddb2a26fc556698108293ae38cb7766 "pdflatex"
   "c:/texlive/2026/texmf-dist/bibtex/bst/base/plain.bst" 1794307852.5145 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
   (generated)
   "build/main.bbl"
   "build/main.blg"
   (rewritten before read)
-["pdflatex"] 1795633331.37036 "c:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/main.tex" "C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/build/main.pdf" "main" 1795633334.92963 0
-  "C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/build/main.aux" 1795633333.80389 6531 5ddb2a26fc556698108293ae38cb7766 "pdflatex"
-  "build/main.aux" 1795633333.80389 6531 5ddb2a26fc556698108293ae38cb7766 "pdflatex"
+["pdflatex"] 1795720978.78175 "c:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/main.tex" "C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/build/main.pdf" "main" 1795720981.29392 0
+  "C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/build/main.aux" 1795720980.33289 6531 5ddb2a26fc556698108293ae38cb7766 "pdflatex"
+  "build/main.aux" 1795720980.33289 6531 5ddb2a26fc556698108293ae38cb7766 "pdflatex"
   "build/main.bbl" 1795627870.12533 4750 a24a2b5720e7f802519f0eb170c8e5b4 "bibtex build/main"
-  "build/main.out" 1795633333.81274 4598 d761fceed25bdf0f0774fb865df0bcee "pdflatex"
-  "c:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/main.tex" 1795633329.87206 38654 8312c0fd9fb4cbb85980e295c98b8148 ""
+  "build/main.out" 1795720980.33782 4598 d761fceed25bdf0f0774fb865df0bcee "pdflatex"
+  "c:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/main.tex" 1795720976.73093 39025 8f73544e8a9d7eb1cde6aac95046f80e ""
   "c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1794308033.58779 2375 baa924870cfb487815765f9094cf3728 ""
   "c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1794308033.59082 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "c:/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1794308033.59145 2405 5dcf2c1b967ee25cc46c58cd52244aed ""

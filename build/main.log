@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.11.10)  25 NOV 2026 20:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.11.10)  26 NOV 2026 20:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -579,7 +579,7 @@ Overfull \hbox (27.25304pt too wide) in alignment at lines 400--403
  []
 
 
-Overfull \hbox (27.25304pt too wide) in alignment at lines 403--450
+Overfull \hbox (27.25304pt too wide) in alignment at lines 403--454
  [] [] [] [] 
  []
 
@@ -597,13 +597,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 Here is how much of TeX's memory you used:
  12819 strings out of 468448
  203523 string characters out of 5442048
- 688691 words of memory out of 5000000
+ 692691 words of memory out of 5000000
  41797 multiletter control sequences out of 15000+600000
  703710 words of font info for 81 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
  74i,14n,83p,981b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmbx9.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi5.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy7.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/build/main.pdf" (11 pages, 425902 bytes).
+Output written on "C:/Users/USER/Documents/COLEGIO/UNIVERSIDAD/4º CARRERA/PID/PixelShuffler/build/main.pdf" (11 pages, 425903 bytes).
 PDF statistics:
  373 PDF objects out of 1000 (max. 8388607)
  314 compressed objects within 4 object streams
